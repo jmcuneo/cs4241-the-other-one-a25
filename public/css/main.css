@@ -1,0 +1,78 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2 {
+  color: #ffcc00;
+}
+
+.hidden {
+  display: none !important;
+}
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.visually-hidden-focusable:focus,
+.skip-link:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  left: 0;
+  background: #ffcc00;
+  color: #000;
+  padding: 8px 12px;
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+#gameArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.click-box {
+  width: 150px;
+  height: 150px;
+  background: rgb(61, 124, 61);
+  margin-top: 20px;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.2em;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.click-box:focus {
+  outline: 4px solid #ffcc00;
+  outline-offset: 2px;
+}
+
+.click-box:active,
+.click-box:focus {
+  transform: scale(0.98);
+  outline: 3px solid rgba(255,204,0,0.3);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  vertical-align: middle;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
