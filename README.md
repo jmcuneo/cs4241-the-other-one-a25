@@ -46,8 +46,8 @@ The original application was a simple game wishlist manager built with vanilla H
 ## Styling Approach
 
 The conversion maintains the original visual design using:
-- **Inline styles** for component-specific styling
-- **CSS-in-JS** via `dangerouslySetInnerHTML` for complex styles
+- **Inline styles** for component specific styling
+- **External CSS** for more general aspects
 - **Google Fonts** integration preserved
 - **Responsive flexbox** layout maintained
 
