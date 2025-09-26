@@ -4,12 +4,47 @@
         <title>Canvas ICE04</title>
     </head>
     <body>
-        <canvas id="canvas" width="200" height="100" style="border:1px solid #000000;"></canvas>
+        <button id="generate" onclick="generate()">Generate!</button>
+        <input type="text" id="num">
+        <canvas id="canvas" width="1000" height="700" style="border:1px solid #000000;"></canvas>
         <script>
-            var c = document.getElementById("canvas");
-            var ctx = c.getContext("2d");
-            ctx.fillStyle = "#FF0000";
-            ctx.fillRect(0,0,150,75);
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+            
+            //ctx.fillStyle = "#FF0000";
+            //ctx.fillRect(0,0,150,75);
+
+            function generate(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                let num = parseInt(document.querySelector("#num").value);
+                console.log(num);
+
+                for (let i = 0; i < num; i++){
+                    console.log("do shape");
+                    let color = Math.floor(Math.random()*16777215).toString(16);
+                    ctx.fillStyle = "#" + color;
+
+                    let shape = Math.floor(Math.random() * 2);
+                    if(shape === 0){
+                        let x = Math.floor(Math.random() * canvas.width);
+                        let y = Math.floor(Math.random() * canvas.height);
+                        let width = Math.floor(Math.random() * (canvas.width / 2));
+                        let height = Math.floor(Math.random() * (canvas.height/2));
+                        ctx.fillRect(x, y, width, height);
+                    }
+                    else if(shape === 1){
+                        ctx.beginPath();
+                        let x = Math.floor(Math.random() * canvas.width);
+                        let y = Math.floor(Math.random() * canvas.height);
+                        let radius = Math.floor(Math.random() * 300);
+                        let startAngle = Math.floor(Math.random() * Math.PI);
+                        let endAngle = Math.floor(Math.random() * Math.PI + startAngle);
+                        let clockwise = Math.floor(Math.random() * 2) === 1 ? false : true;
+                        ctx.arc(x, y, radius, startAngle, endAngle, clockwise);
+                        ctx.fill()
+                    }
+                }
+            }
         </script>
     </body>
 </html>
