@@ -3,7 +3,7 @@ const playButton = document.querySelector("#play-button");
 let audioCtx = new AudioContext();
 let track = audioCtx.createBufferSource();
 
-fetch("cat-meow-401729.mp3")
+fetch("audioFiles/cat-meow-401729.mp3")
     .then(response => response.arrayBuffer())
     .then(buffer => audioCtx.decodeAudioData(buffer))
     .then(buffer => {
