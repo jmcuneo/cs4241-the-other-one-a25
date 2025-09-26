@@ -1,7 +1,5 @@
 // FRONT-END (CLIENT) JAVASCRIPT HERE
 
-import { createRoot } from 'react-dom/client';
-
 let currentTodos = []
 
 const submit = async function( event ) {
