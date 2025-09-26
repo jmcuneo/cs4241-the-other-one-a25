@@ -1,12 +1,18 @@
 {
-  "name": "a2-owenhart",
+  "name": "ICE04",
   "version": "1.0.0",
-  "description": "Second assignment of CS4241",
-  "author": "Owen Hart",
+  "description": "ICE04 of CS4241",
+  "author": "Group 15",
   "scripts": {
+    "dev": "vite",
     "start": "node server.improved.js"
   },
   "dependencies": {
-    "mime": "^2.6.0"
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^7.1.7"
   }
 }
