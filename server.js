@@ -15,6 +15,14 @@ app.get('/data.json', (req, res) => {
     res.sendFile((__dirname + '/data.json'));
 });
 
+app.get('/cameron', (req, res) => {
+    res.sendFile(__dirname + '/src/cameron.html')
+})
+
+app.get('/dillion', (req, res) =>{
+    res.sendFile(__dirname + '/src/dillon.html')
+})
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
