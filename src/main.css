@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Vend Sans:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Vend Sans', 'Helvetica', 'Arial', sans-serif;
+    background:black;
+    color:white;
+}
+
+.main, nav{
+    background-color:white;
+    margin:auto;
+    padding:1em;
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    justify-content:center;
+    justify-items: center;
+}
+
+nav div{
+    margin:auto;
+    padding:1em;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:center;
+    justify-items: center;
+}
+
+nav p{
+    border:1px solid darkgray;
+    margin:1em;
+    padding:1em;
+    color:darkslategray;
+}
+
+nav a, a:visited{
+    color:darkslategray;
+}
+
+nav a:hover{
+    color:navy;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color:white;
+    text-align:center;
+}
+
+nav h1, nav h2, nav h3, nav h4, nav h5, nav h6 {
+    color:darkslateblue;
+}
+
+#merchform h2{
+    color:darkslateblue;
+}
+
+#merchform{
+    border:1px solid darkslategray;
+    padding:1em;
+    margin:auto;
+    justify-self: flex-end;
+    color:darkslategray;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    justify-items: flex-start;
+}
+
+#merchform input{
+    flex-grow:1;
+}
+
+#merchform label{
+    padding-right:1em
+}
+
+.horizontal{
+    padding:1em;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    justify-items: flex-start;
+}
+
+.vertical{
+    padding:1em;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    justify-items: flex-start;
+}
+
+.collapsible, .collapsible tr, .collapsible th, .collapsible td {
+    font-family: 'Arimo', 'Arial', sans-serif;
+    color: darkslategray;
+    border: 1px solid gray;
+    border-collapse: collapse;
+    padding: .5em;
+}
+
+#response\ message{
+    color:darkslategray;
+    text-align: center;
+}
+
+#second{
+    display:none;
+}
+
+#second label{
+    color:darkslategray;
+}
+
+#second div.horizontal{
+    justify-self: center;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-around;
+}
+
+#second div.vertical{
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+}
+
+#second label{
+    margin-bottom:1em;
+}
+
+#second input{
+    margin-bottom:2em;
+}
+
+#second button:hover{
+    color:gray;
+}
+
+#save{
+    background-color:darkslateblue;
+    color:white;
+}
+
+.delete, #discard{
+    background-color:darkred;
+    color:white;
+}
+
+.buttonHolder{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+}
