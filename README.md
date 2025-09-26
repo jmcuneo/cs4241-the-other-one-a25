@@ -16,7 +16,7 @@ The original application was a simple game wishlist manager built with vanilla H
 
 ### React Version
 - **Components**: Reusable, declarative UI components
-- **State Management**: React hooks (`useState`, `useEffect`) for reactive data
+- **State Management**: React hooks (useState, useEffect) for reactive data
 - **TypeScript**: Type safety with interfaces and proper typing
 - **Modern Patterns**: Controlled components and event handlers
 
@@ -27,16 +27,6 @@ The original application was a simple game wishlist manager built with vanilla H
 - Read: Load and display game data from server
 - Update: Edit existing game entries
 - Delete: Remove games from wishlist
-
-**Server Communication**
-- `GET /appdata` - Load initial data
-- `POST /submit` - Add/update games
-- `POST /remove` - Delete games
-
-**Real time Calculations**
-- Total price of all games
-- Average price calculation
-- Automatic updates on data changes
 
 **Form Management**
 - Input validation
