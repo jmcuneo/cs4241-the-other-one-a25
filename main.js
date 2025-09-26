@@ -25,6 +25,7 @@ const app = {
         this.points = this.createPoints()
         this.points2 = this.createPoints2()
         this.torus = this.createTorus()
+        this.sphere = this.createSphere()
 
         // Take whatever function you're calling this on and creates a
         // permanent execution context. Ensures that when we call render(),
@@ -39,6 +40,7 @@ const app = {
         this.pane.addBinding( this.knot.rotation, 'y' )
         this.pane.addBinding(this.torus.rotation, 'y')
         // this.pane.addBinding(this.torus, 'radius')
+        this.pane.addBinding( this.sphere.size, 'sphere size' )
     },
 
     createLights() {
@@ -106,6 +108,16 @@ const app = {
         return torus
     },
 
+    createSphere() {
+        const spheregeo = new THREE.SphereGeometry(2, 32, 16);
+
+        const mat = new THREE.MeshToonMaterial({ color: 0xffc0cb, shininess:2000 })
+        const sphere = new THREE.Mesh( spheregeo, mat )
+
+        this.scene.add( sphere )
+        return sphere
+    },
+
     // Animation loop
     render() {
         // Slowing increment the rotation angle over time to animate the knot
@@ -115,6 +127,7 @@ const app = {
         this.points.rotation.y += .025
         this.points2.rotation.x -= .025
         this.points2.rotation.y -= .025
+        this.sphere.rotation.x += .025
 
         // Render using the scene and camera specified earlier
         this.renderer.render( this.scene, this.camera )
