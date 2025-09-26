@@ -44,12 +44,12 @@ function App() {
                 <table id="todo-table">
                   <thead>
                     <tr>
-                      <th style={{backgroundColor: "#8e7572;"}}>ID</th>
-                      <th style={{backgroundColor: "#8e7572;"}}>Task</th>
-                      <th style={{backgroundColor: "#8e7572;"}}>Priority</th>
-                      <th style={{backgroundColor: "#8e7572;"}}>Creation Date</th>
-                      <th style={{backgroundColor: "#8e7572;"}}>Deadline</th>
-                      <th style={{backgroundColor: "#8e7572;"}}>Actions</th>
+                      <th style={{backgroundColor: "#8e7572"}}>ID</th>
+                      <th style={{backgroundColor: "#8e7572"}}>Task</th>
+                      <th style={{backgroundColor: "#8e7572"}}>Priority</th>
+                      <th style={{backgroundColor: "#8e7572"}}>Creation Date</th>
+                      <th style={{backgroundColor: "#8e7572"}}>Deadline</th>
+                      <th style={{backgroundColor: "#8e7572"}}>Actions</th>
                     </tr>
                   </thead>
                   <tbody id="todo-list">

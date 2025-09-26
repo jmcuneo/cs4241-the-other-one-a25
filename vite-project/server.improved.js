@@ -1,6 +1,7 @@
 import { createServer } from "http"
 import { readFile } from "fs"
-import { getType } from "mime"
+import pkg from 'mime';
+const { getType } = pkg;
 const dir = "src/"
 
 let todoData = [
@@ -67,6 +68,7 @@ const handleGet = function( request, response ) {
   if( request.url === "/" ) {
     sendFile( response, "public/index.html" )
   } else if( request.url === "/todos" ) { // return todo data set
+    response.setHeader("Access-Control-Allow-Origin", "*");
     response.writeHead( 200, "OK", {"Content-Type": "application/json" })
     response.end( JSON.stringify(todoData, null, 2) )
   } else {
@@ -100,6 +102,7 @@ const handlePost = function( request, response ) {
     console.log("All todos:", todoData)
 
     // Return updated dataset to client
+    response.setHeader("Access-Control-Allow-Origin", "*");
     response.writeHead( 200, "OK", {"Content-Type": "application/json" })
     response.end( JSON.stringify(todoData) )
   })
@@ -113,10 +116,11 @@ const handleDelete = function( request, response ) {
     todoData = todoData.filter(todo => todo.id !== id)
     console.log(`Deleted todo with id ${id}`)
     console.log("Remaining todos:", todoData)
-    
+    response.setHeader("Access-Control-Allow-Origin", "*");
     response.writeHead( 200, "OK", {"Content-Type": "application/json" })
     response.end( JSON.stringify(todoData) )
   } else {
+    response.setHeader("Access-Control-Allow-Origin", "*");
     response.writeHead( 400, "Bad Request", {"Content-Type": "text/plain" })
     response.end("Missing id parameter")
   }
@@ -131,12 +135,14 @@ const sendFile = function( response, filename ) {
      if( err === null ) {
 
        // status code: https://httpstatuses.com
+       response.setHeader("Access-Control-Allow-Origin", "*");
        response.writeHeader( 200, { "Content-Type": type })
        response.end( content )
 
      }else{
 
        // file not found, error code 404
+       response.setHeader("Access-Control-Allow-Origin", "*");
        response.writeHeader( 404 )
        response.end( "404 Error: File Not Found" )
 
@@ -144,4 +150,4 @@ const sendFile = function( response, filename ) {
    })
 }
 
-server.listen( 5173 )
+server.listen( 3000 )
