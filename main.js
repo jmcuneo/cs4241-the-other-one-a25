@@ -11,6 +11,24 @@ const app = {
         this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
         this.camera.position.z = 50
 
+        // audio
+        const listener = new THREE.AudioListener();
+        this.camera.add( listener );
+
+        const sound = new THREE.Audio( listener );
+
+        const audioLoader = new THREE.AudioLoader();
+        audioLoader.load('/sounds/clarity.mp3', (buffer) => {
+            sound.setBuffer(buffer);
+            sound.setLoop(true);
+            sound.setVolume(0);
+            sound.play();
+
+            setTimeout(() => {
+                sound.setVolume(1);
+            }, 1000);
+        });
+
         // Specify the type of renderer to use. In this case, it's a WebGL renderer.
         this.renderer = new THREE.WebGLRenderer()
 
@@ -37,6 +55,8 @@ const app = {
         // create a new tweakpane instance
         this.pane = new Pane()
         // setup our pane to control the know rotation on the y axis
+        this.pane.addBinding( this.knot.rotation, 'y' )
+        this.pane.addBinding(this.points.rotation, 'y')
         this.pane.addBinding(this.knot.rotation, 'y')
         this.pane.addBinding(this.torus.rotation, 'y')
         this.pane.addBinding({ radius: 2}, 'radius', {
@@ -65,8 +85,8 @@ const app = {
         const knotgeo = new THREE.TorusKnotGeometry(10, .5, 128, 16, 5, 21)
 
         // The material (texture) for the shape we want to draw
-        const mat = new THREE.MeshPhongMaterial({ color: 0xfe0000, shininess: 2000 })
-        const knot = new THREE.Mesh(knotgeo, mat)
+        const mat     = new THREE.MeshPhongMaterial({ color: 'lightblue', shininess:2000 })
+        const knot    = new THREE.Mesh( knotgeo, mat )
 
         // Add the knot tho the scene
         this.scene.add(knot)
