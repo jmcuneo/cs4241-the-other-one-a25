@@ -25,6 +25,7 @@ export default function Leaderboard() {
   const [scores, setScores] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  
 
   useEffect(() => { load() }, [])
   useEffect(() => {
@@ -36,12 +37,11 @@ export default function Leaderboard() {
   async function load() {
     setLoading(true)
     setError(null)
-    // load server scores (if available)
+
     const list = []
+    // load server scores (if available)
     const res = await api('/api/results')
-    if (!res.ok) {
-      // server may require auth; ignore and continue with local scores
-    } else {
+    if (res.ok) {
       const serverList = res.body || []
       serverList.forEach(s => list.push(s))
     }
@@ -51,15 +51,22 @@ export default function Leaderboard() {
       const localKey = 'localScores'
       const local = JSON.parse(localStorage.getItem(localKey) || '[]')
       if (Array.isArray(local)) {
-        // mark local entries (they already have _id as local-...)
         local.forEach(s => list.push(s))
       }
     } catch (e) {
-      // ignore parse errors
+      setLocalDebug({ error: 'parse error' })
     }
 
-    list.sort((a,b)=>b.score - a.score)
-    setScores(list)
+    // deduplicate by _id (server ids and local-... ids)
+    const byId = new Map()
+    list.forEach(item => {
+      const id = item._id || `${item.name}-${item.createdAt}`
+      // normalize numeric fields
+      const normalized = Object.assign({}, item, { score: Number(item.score) || 0, clicksPerSecond: Number(item.clicksPerSecond) || 0 })
+      byId.set(id, normalized)
+    })
+    const finalList = Array.from(byId.values()).sort((a, b) => b.score - a.score)
+    setScores(finalList)
     setLoading(false)
   }
 
@@ -108,6 +115,7 @@ export default function Leaderboard() {
           ))}
         </tbody>
       </table>
+      
     </div>
   )
 }
@@ -125,14 +133,14 @@ function Row({ row, onSave, onDelete }) {
           : <input value={name} onChange={e=>setName(e.target.value)} />}
       </td>
       <td>
-        {!editing ? <span>{row.score}</span>
+        {!editing ? <span>{typeof row.score === 'number' ? row.score : (row.score ?? '—')}</span>
           : <input type="number" value={score} onChange={e=>setScore(Number(e.target.value))} />}
       </td>
       <td>
-        {!editing ? <span>{Number(row.clicksPerSecond).toFixed(2)}</span>
+        {!editing ? <span>{typeof row.clicksPerSecond === 'number' ? Number(row.clicksPerSecond).toFixed(2) : (row.clicksPerSecond ?? '—')}</span>
           : <input type="number" step="0.01" value={cps} onChange={e=>setCps(e.target.value)} />}
       </td>
-      <td>{new Date(row.createdAt).toLocaleString()}</td>
+      <td>{row.createdAt ? new Date(row.createdAt).toLocaleString() : '—'}</td>
       <td>
         {!editing ? (
           <>

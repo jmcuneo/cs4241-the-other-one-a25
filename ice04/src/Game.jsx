@@ -29,6 +29,8 @@ export default function Game() {
   const [message, setMessage] = useState('')
   const [labelInput, setLabelInput] = useState('')
   const timerRef = useRef(null)
+  const endingRef = useRef(false)
+  const clicksRef = useRef(0)
 
   useEffect(() => {
     // check auth on mount
@@ -64,52 +66,69 @@ export default function Game() {
   const startGame = (e) => {
     e?.preventDefault()
     setClicks(0)
+    clicksRef.current = 0
     setTimer(10)
+    endingRef.current = false
     setGameActive(true)
     setMessage('')
   }
 
   const registerClick = () => {
     if (!gameActive) return
-    setClicks((c) => c + 1)
+    setClicks((c) => {
+      const next = c + 1
+      try { clicksRef.current = next } catch (e) {}
+      return next
+    })
   }
 
   const endGame = async () => {
+    // guard against multiple calls
+    if (endingRef.current) return
+    endingRef.current = true
     clearInterval(timerRef.current)
     setGameActive(false)
-    const totalTime = 10
-    const cps = (clicks / totalTime) || 0
-    const label = labelInput.trim() || (currentUsername ? `${currentUsername} run` : 'Anonymous run')
+  const totalTime = 10
+  const finalClicks = (typeof clicksRef.current === 'number' && clicksRef.current >= 0) ? clicksRef.current : clicks
+  const cps = (finalClicks / totalTime) || 0
+  const label = labelInput.trim() || (currentUsername ? `${currentUsername} run` : 'Anonymous run')
+    // always save a local temporary copy so leaderboard shows the score immediately
+    const localKey = 'localScores'
+    const tmpId = `local-${Date.now()}-${Math.floor(Math.random()*10000)}`
+  const item = { name: label, score: Number(finalClicks) || 0, clicksPerSecond: Number(cps.toFixed(2)) || 0, createdAt: new Date().toISOString(), _id: tmpId }
+    try {
+      const existing = JSON.parse(localStorage.getItem(localKey) || '[]')
+      existing.push(item)
+      localStorage.setItem(localKey, JSON.stringify(existing))
+      try { window.dispatchEvent(new CustomEvent('scoreSaved')) } catch (e) {}
+    } catch (e) {
+      // ignore local save errors
+    }
 
     if (currentUsername) {
-      setMessage(`Run complete — score ${clicks} (${cps.toFixed(2)} clicks/sec). Saving...`)
+  setMessage(`Run complete — score ${finalClicks} (${cps.toFixed(2)} clicks/sec). Saving...`)
 
-      const res = await api('/api/submit', {
+        const res = await api('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: label, score: clicks, clicksPerSecond: Number(cps.toFixed(2)) })
+        body: JSON.stringify({ name: label, score: finalClicks, clicksPerSecond: Number(cps.toFixed(2)) })
       })
 
       if (res.ok) {
         setMessage('Saved!')
-        // notify leaderboard to reload
+        // remove the temporary local copy now that server save succeeded
+        try {
+          const existing2 = JSON.parse(localStorage.getItem(localKey) || '[]')
+          const filtered = existing2.filter(s => s._id !== tmpId)
+          localStorage.setItem(localKey, JSON.stringify(filtered))
+        } catch (e) {}
         try { window.dispatchEvent(new CustomEvent('scoreSaved')) } catch (e) {}
       } else {
-        setMessage('Could not save: ' + (res.body?.error || JSON.stringify(res.body)))
+        setMessage('Could not save to server: ' + (res.body?.error || JSON.stringify(res.body)))
+        // keep local copy so score still appears
       }
     } else {
-      // not signed in: save locally so leaderboard can show it
-      const localKey = 'localScores'
-      const item = { name: label, score: clicks, clicksPerSecond: Number(cps.toFixed(2)), createdAt: new Date().toISOString(), _id: `local-${Date.now()}` }
-      try {
-        const existing = JSON.parse(localStorage.getItem(localKey) || '[]')
-        existing.push(item)
-        localStorage.setItem(localKey, JSON.stringify(existing))
-        setMessage(`Run complete — score ${clicks} (${cps.toFixed(2)} clicks/sec). Saved locally.`)
-        try { window.dispatchEvent(new CustomEvent('scoreSaved')) } catch (e) {}
-      } catch (e) {
-        setMessage(`Run complete — score ${clicks} (${cps.toFixed(2)} clicks/sec). (Could not save locally)`)
-      }
+  setMessage(`Run complete — score ${finalClicks} (${cps.toFixed(2)} clicks/sec). Saved locally.`)
     }
   }
 

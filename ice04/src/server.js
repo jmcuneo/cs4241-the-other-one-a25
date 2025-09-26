@@ -9,8 +9,8 @@ const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 const morgan = require('morgan');
 
-const User = require('../../models/User');
-const Score = require('../../models/Score');
+const User = require('./User');
+const Score = require('./Score');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
