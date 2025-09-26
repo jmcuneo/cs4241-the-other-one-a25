@@ -4,7 +4,7 @@ This project demonstrates the conversion of a vanilla HTML/JavaScript game wishl
 
 ## Overview
 
-The original application was a simple game wishlist manager built with vanilla HTML, CSS, and JavaScript that communicated with a server backend. The converted version maintains much of the original functionality while leveraging React's component based architecture and state management, although due to time constraints not everything was able to be translated exactly.
+The original application was a simple game wishlist manager built with vanilla HTML, CSS, and JavaScript that communicated with a server backend. The converted version maintains much of the original functionality while leveraging React's component based architecture and state management, although due to time constraints not everything was able to be translated.
 
 ## Original vs. React Architecture
 
@@ -42,49 +42,6 @@ The original application was a simple game wishlist manager built with vanilla H
 - Input validation
 - Form clearing after submission
 - Edit mode with pre-populated values
-
-## Technical Improvements
-
-### Type Safety
-```typescript
-interface Game {
-  name: string;
-  review: string;
-  price: number;
-}
-```
-
-### State Management
-```typescript
-const [games, setGames] = useState<Game[]>([]);
-const [gameName, setGameName] = useState("");
-
-```
-
-### Modern Event Handling
-```typescript
-const submit = async (event: React.FormEvent) => {
-  event.preventDefault();
-  // Full implementation handles form submission
-};
-```
-
-### Component Lifecycle
-```typescript
-useEffect(() => {
-  loadData();
-}, []);
-
-
-## API Integration
-
-The React version maintains full compatibility with the original server endpoints:
-
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/appdata` | GET | Load initial game data |
-| `/submit` | POST | Add or update games |
-| `/remove` | POST | Delete games by index |
 
 ## Styling Approach
 
