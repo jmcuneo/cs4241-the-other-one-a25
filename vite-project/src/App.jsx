@@ -1,32 +1,8 @@
 
-import { useEffect } from 'react'
 import './App.css'
 
 function App() {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const [todos, getTodos] = useEffect([
-  { 
-    id: 1,
-    task: "Complete assignment 2", 
-    priority: "high", 
-    creation_date: "2025-09-04",
-    deadline: "2025-09-08" // hard coded in, high priority usually has a 3 day deadline
-  },
-  { 
-    id: 2,
-    task: "Study for exam", 
-    priority: "medium", 
-    creation_date: "2025-09-04",
-    deadline: "2025-09-11"
-  },
-  { 
-    id: 3,
-    task: "Buy groceries", 
-    priority: "low", 
-    creation_date: "2025-09-04",
-    deadline: "2025-09-18"
-  }
-  ])
+
 
   return (
     <>
@@ -75,7 +51,6 @@ function App() {
                       <th style={{backgroundColor: "#8e7572;"}}>Deadline</th>
                       <th style={{backgroundColor: "#8e7572;"}}>Actions</th>
                     </tr>
-                    {getTodos()}
                   </thead>
                   <tbody id="todo-list">
                   </tbody>
