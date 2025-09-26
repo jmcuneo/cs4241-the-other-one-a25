@@ -9,7 +9,7 @@ In this activity, we did a simplified version of A4 Creative Coding. More specif
 
 
 Contributions: 
-Eric 
-Alex 
+Eric - Defined server structure, separating out logic for shape, stage, and camera. Added colors and panels
+Alex - Worked on the knot, and general added parameters and shapes, colors, animations. 
 John - Add Torus object and panel to modify animation
-Alexander
+Alexander - I tried to set up anaglyph effect and import gltf objects, but neither of these worked and I could not get the imports to work. I otherwise helped set up and changed the shapes
