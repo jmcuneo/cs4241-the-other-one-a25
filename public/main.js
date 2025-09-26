@@ -5,21 +5,69 @@ const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.inner
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setAnimationLoop( animate );
+renderer.setAnimationLoop( animate);
 document.body.appendChild( renderer.domElement );
 
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
+const materials = [
+  new THREE.MeshBasicMaterial({ color: 0xff0000 }), // red
+  new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // green
+  new THREE.MeshBasicMaterial({ color: 0x0000ff }), // blue
+  new THREE.MeshBasicMaterial({ color: 0xffff00 }), // yellow
+  new THREE.MeshBasicMaterial({ color: 0xff00ff }), // magenta
+  new THREE.MeshBasicMaterial({ color: 0x00ffff })  // cyan
+];
+const cube = new THREE.Mesh( geometry, materials);
 scene.add( cube );
 
 camera.position.z = 5;
 
 function animate() {
+  renderer.render( scene, camera );
+}
 
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
+async function cubeRotation() {
+  const xSlider = document.getElementById('xRotation');
+  const ySlider = document.getElementById('yRotation');
+  const zSlider = document.getElementById('zRotation');
+
+  xSlider.addEventListener('input', () => {
+    cube.rotation.x = THREE.MathUtils.degToRad(xSlider.value);
+  });
+
+  ySlider.addEventListener('input', () => {
+    cube.rotation.y = THREE.MathUtils.degToRad(ySlider.value);
+  });
+
+  zSlider.addEventListener('input', () => {
+    cube.rotation.z = THREE.MathUtils.degToRad(zSlider.value);
+  });
+}
+
+cubeRotation();
+
+function spin(c, t) {
+
+  c.rotation.x += 0.01;
+  c.rotation.y += 0.01;
 
   renderer.render( scene, camera );
 
 }
+
+function addCube() {
+  const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+  const randColor = '#'+(Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, '0');
+  const material = new THREE.MeshBasicMaterial( { color: randColor } );
+  const cube = new THREE.Mesh( geometry, material );
+
+  cube.position.x = (Math.random() - 0.5) * 10; // range -5 to +5
+  cube.position.y = (Math.random() - 0.5) * 10; // range -5 to +5
+  cube.position.z = (Math.random() - 0.5) * 10; // range -5 to +5
+
+  scene.add( cube );
+
+  renderer.setAnimationLoop( t => spin(cube, t));
+}
+
+window.addEventListener('click', addCube);
