@@ -22,6 +22,7 @@ const app = {
 
         this.createLights()
         this.knot = this.createKnot()
+        this.torus = this.createTorus()
 
         // Take whatever function you're calling this on and creates a
         // permanent execution context. Ensures that when we call render(),
@@ -34,6 +35,8 @@ const app = {
         this.pane = new Pane()
         // setup our pane to control the know rotation on the y axis
         this.pane.addBinding( this.knot.rotation, 'y' )
+        this.pane.addBinding(this.torus.rotation, 'y')
+        // this.pane.addBinding(this.torus, 'radius')
     },
 
     createLights() {
@@ -52,7 +55,7 @@ const app = {
         const knotgeo = new THREE.TorusKnotGeometry( 10, .5, 128, 16, 5, 21 )
 
         // The material (texture) for the shape we want to draw
-        const mat     = new THREE.MeshPhongMaterial({ color:0xff0000, shininess:2000 })
+        const mat     = new THREE.MeshPhongMaterial({ color:0xfe0000, shininess:2000 })
         const knot    = new THREE.Mesh( knotgeo, mat )
 
         // Add the knot tho the scene
@@ -60,10 +63,22 @@ const app = {
         return knot
     },
 
+    // Create cube
+    createTorus() {
+        const tubegeo = new THREE.TorusGeometry(3, .5, 8, 24)
+
+        const material = new THREE.MeshPhongMaterial({color:0xecbdc4, shininess:5000})
+        const torus = new THREE.Mesh(tubegeo, material)
+
+        this.scene.add(torus)
+        return torus
+    },
+
     // Animation loop
     render() {
         // Slowing increment the rotation angle over time to animate the knot
         this.knot.rotation.x += .025
+        this.torus.rotation.x += 0.04
 
         // Render using the scene and camera specified earlier
         this.renderer.render( this.scene, this.camera )
