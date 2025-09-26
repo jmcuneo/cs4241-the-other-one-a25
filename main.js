@@ -23,6 +23,16 @@ const app = {
             pulseScale: 0.2,
             pulseSpeed: 2
         }
+        
+        // Initialize color parameters
+        this.colorParams = {
+            knotColor: { r: 255, g: 0, b: 0 },    // Red
+            cubeColor: { r: 0, g: 255, b: 0 },    // Green
+            sphereColor: { r: 0, g: 0, b: 255 }   // Blue
+        }
+        
+        // Flag to track if colors have been initialized
+        this.colorsInitialized = false;
 
         // Take whatever function you're calling this on and creates a 
         // permanent execution context. Ensures that when we call render(),
@@ -59,6 +69,19 @@ const app = {
         knotFolder.addBinding(this.objects.knot.rotation, 'z', { min: 0, max: Math.PI * 2 })
         knotFolder.addBinding(this.objects.knot.scale, 'x', { min: 0.1, max: 3, step: 0.1 })
         
+        // Color controls for knot
+        knotFolder.addBinding(this.colorParams, 'knotColor', {
+            view: 'color',
+            label: 'Color'
+        }).on('change', (ev) => {
+            const color = new THREE.Color(
+                ev.value.r / 255,
+                ev.value.g / 255,
+                ev.value.b / 255
+            );
+            this.objects.knot.material.color = color;
+        });
+        
         // Knot animation controls
         knotAnimationFolder.addBinding(this.animationParams, 'verticalOscillation', { min: 0, max: 10, step: 0.5 })
         knotAnimationFolder.addBinding(this.animationParams, 'depthOscillation', { min: 0, max: 10, step: 0.5 })
@@ -70,15 +93,65 @@ const app = {
         cubeFolder.addBinding(this.objects.cube.rotation, 'x', { min: 0, max: Math.PI * 2 })
         cubeFolder.addBinding(this.objects.cube.rotation, 'y', { min: 0, max: Math.PI * 2 })
         cubeFolder.addBinding(this.objects.cube.rotation, 'z', { min: 0, max: Math.PI * 2 })
+        
+        // Color controls for cube
+        cubeFolder.addBinding(this.colorParams, 'cubeColor', {
+            view: 'color',
+            label: 'Color'
+        }).on('change', (ev) => {
+            const color = new THREE.Color(
+                ev.value.r / 255,
+                ev.value.g / 255,
+                ev.value.b / 255
+            );
+            this.objects.cube.material.color = color;
+        });
 
         // Sphere controls
         sphereFolder.addBinding(this.objects.sphere.rotation, 'x', { min: 0, max: Math.PI * 2 })
         sphereFolder.addBinding(this.objects.sphere.rotation, 'y', { min: 0, max: Math.PI * 2 })
         sphereFolder.addBinding(this.objects.sphere.rotation, 'z', { min: 0, max: Math.PI * 2 })
+        
+        // Color controls for sphere
+        sphereFolder.addBinding(this.colorParams, 'sphereColor', {
+            view: 'color',
+            label: 'Color'
+        }).on('change', (ev) => {
+            const color = new THREE.Color(
+                ev.value.r / 255,
+                ev.value.g / 255,
+                ev.value.b / 255
+            );
+            this.objects.sphere.material.color = color;
+        });
     },
 
     // Animation loop
     render() {
+        // Initialize colors on the first frame if they haven't been set already
+        if (!this.colorsInitialized) {
+            // Set initial colors based on the colorParams
+            this.objects.knot.material.color = new THREE.Color(
+                this.colorParams.knotColor.r / 255,
+                this.colorParams.knotColor.g / 255,
+                this.colorParams.knotColor.b / 255
+            );
+            
+            this.objects.cube.material.color = new THREE.Color(
+                this.colorParams.cubeColor.r / 255,
+                this.colorParams.cubeColor.g / 255,
+                this.colorParams.cubeColor.b / 255
+            );
+            
+            this.objects.sphere.material.color = new THREE.Color(
+                this.colorParams.sphereColor.r / 255,
+                this.colorParams.sphereColor.g / 255,
+                this.colorParams.sphereColor.b / 255
+            );
+            
+            this.colorsInitialized = true;
+        }
+        
         // Track the time for smooth animations
         const time = performance.now() * 0.001; // convert to seconds
         
