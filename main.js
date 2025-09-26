@@ -44,6 +44,8 @@ const app = {
         const cubeAnimationFolder = this.pane.addFolder({ title: 'Cube Animation' })
         const sphereFolder = this.pane.addFolder({ title: 'Sphere Controls' })
         const sphereAnimationFolder = this.pane.addFolder({ title: 'Sphere Animation' })
+    const torusFolder = this.pane.addFolder({ title: 'Torus Controls' })
+    const torusAnimationFolder = this.pane.addFolder({ title: 'Torus Animation' })
 
         // Add animation parameters
         this.animationParams = {
@@ -86,6 +88,12 @@ const app = {
         sphereFolder.addBinding(this.objects.sphere.rotation, 'y', { min: 0, max: Math.PI * 2 })
         sphereFolder.addBinding(this.objects.sphere.rotation, 'z', { min: 0, max: Math.PI * 2 })
 
+    // Torus controls
+    torusFolder.addBinding(this.objects.torus.rotation, 'x', { min: 0, max: Math.PI * 2 })
+    torusFolder.addBinding(this.objects.torus.rotation, 'y', { min: 0, max: Math.PI * 2 })
+    torusFolder.addBinding(this.objects.torus.rotation, 'z', { min: 0, max: Math.PI * 2 })
+    torusFolder.addBinding(this.objects.torus.scale, 'x', { min: 0.1, max: 3, step: 0.1 })
+
         // Sphere animation controls
         sphereAnimationFolder.addBinding(this.animationParams, 'verticalOscillation', { min: 0, max: 10, step: 0.5 })
         sphereAnimationFolder.addBinding(this.animationParams, 'depthOscillation', { min: 0, max: 10, step: 0.5 })
@@ -93,6 +101,13 @@ const app = {
         sphereAnimationFolder.addBinding(this.animationParams, 'depthSpeed', { min: 0.1, max: 5, step: 0.1 })
         sphereAnimationFolder.addBinding(this.animationParams, 'pulseScale', { min: 0, max: 1, step: 0.05 })
         sphereAnimationFolder.addBinding(this.animationParams, 'pulseSpeed', { min: 0.1, max: 5, step: 0.1 })
+        // Torus animation controls
+        torusAnimationFolder.addBinding(this.animationParams, 'verticalOscillation', { min: 0, max: 10, step: 0.5 })
+        torusAnimationFolder.addBinding(this.animationParams, 'depthOscillation', { min: 0, max: 10, step: 0.5 })
+        torusAnimationFolder.addBinding(this.animationParams, 'verticalSpeed', { min: 0.1, max: 5, step: 0.1 })
+        torusAnimationFolder.addBinding(this.animationParams, 'depthSpeed', { min: 0.1, max: 5, step: 0.1 })
+        torusAnimationFolder.addBinding(this.animationParams, 'pulseScale', { min: 0, max: 1, step: 0.05 })
+        torusAnimationFolder.addBinding(this.animationParams, 'pulseSpeed', { min: 0.1, max: 5, step: 0.1 })
     },
 
     // Animation loop
@@ -117,6 +132,22 @@ const app = {
         this.objects.cube.rotation.x += 0.01;
         this.objects.sphere.rotation.z += 0.03;
         this.objects.sphere.rotation.y += 0.015;
+        // Animate torus: rotations and oscillation + pulse using shared animation params
+        if (this.objects.torus) {
+            // gentle rotation
+            this.objects.torus.rotation.x += 0.02;
+            this.objects.torus.rotation.y += 0.01;
+            this.objects.torus.rotation.z += 0.015;
+
+            // base offset (created at y=12) plus configurable oscillation
+            const baseTorusY = 12;
+            this.objects.torus.position.y = baseTorusY + Math.sin(time * this.animationParams.verticalSpeed) * this.animationParams.verticalOscillation;
+            this.objects.torus.position.z = Math.cos(time * this.animationParams.depthSpeed) * this.animationParams.depthOscillation;
+
+            // pulsating scale
+            const torusScale = 1 + Math.sin(time * this.animationParams.pulseSpeed) * this.animationParams.pulseScale;
+            this.objects.torus.scale.set(torusScale, torusScale, torusScale);
+        }
 
         // Render using the scene and camera specified earlier
         this.renderer.render(this.scene, this.camera);
