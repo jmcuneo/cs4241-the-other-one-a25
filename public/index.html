@@ -6,11 +6,7 @@
     <style>
       body { margin: 0; }
     </style>
-  </head>
-  <body>
-    <script type="module" src="/main.js"></script>
-
-    <script type="importmap">
+     <script type="importmap">
   {
     "imports": {
       "three": "https://unpkg.com/three/build/three.module.js",
@@ -18,5 +14,18 @@
     }
   }
 </script>
+  </head>
+  <body>
+    <script type="module" src="/main.js"></script>
+    <div class="slider-container">
+      <input type="range" min="0" max="360" value="0" class="slider" id="xRotation">
+      <label for="xRotation">X Rotation</label>
+      <input type="range" min="0" max="360" value="0" class="slider" id="yRotation">
+      <label for="yRotation">Y Rotation</label>
+      <input type="range" min="0" max="360" value="0" class="slider" id="zRotation">
+      <label for="zRotation">Z Rotation</label>
+    </div>
+
+   
   </body>
 </html>

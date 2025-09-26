@@ -9,12 +9,20 @@ renderer.setAnimationLoop( animate );
 document.body.appendChild( renderer.domElement );
 
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
+const materials = [
+  new THREE.MeshBasicMaterial({ color: 0xff0000 }), // red
+  new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // green
+  new THREE.MeshBasicMaterial({ color: 0x0000ff }), // blue
+  new THREE.MeshBasicMaterial({ color: 0xffff00 }), // yellow
+  new THREE.MeshBasicMaterial({ color: 0xff00ff }), // magenta
+  new THREE.MeshBasicMaterial({ color: 0x00ffff })  // cyan
+];
+
+const cube = new THREE.Mesh( geometry, materials );
 scene.add( cube );
 
 camera.position.z = 5;
-
+/*
 function animate() {
 
   cube.rotation.x += 0.01;
@@ -23,3 +31,28 @@ function animate() {
   renderer.render( scene, camera );
 
 }
+  */
+
+function animate() {
+  renderer.render( scene, camera );
+}
+
+async function cubeRotation() {
+  const xSlider = document.getElementById('xRotation');
+  const ySlider = document.getElementById('yRotation');
+  const zSlider = document.getElementById('zRotation');
+
+  xSlider.addEventListener('input', () => {
+    cube.rotation.x = THREE.MathUtils.degToRad(xSlider.value);
+  });
+
+  ySlider.addEventListener('input', () => {
+    cube.rotation.y = THREE.MathUtils.degToRad(ySlider.value);
+  });
+
+  zSlider.addEventListener('input', () => {
+    cube.rotation.z = THREE.MathUtils.degToRad(zSlider.value);
+  });
+}
+
+cubeRotation();
