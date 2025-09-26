@@ -2,7 +2,7 @@
 
 ### 1. Deployment
 
-[Deployment](https://google.com)
+[Deployment](https://cs4241-ice4-group-19.onrender.com/)
 
 ### 2. Group Members
 * Utku Yakar
@@ -15,8 +15,7 @@
 * Ashley Fontaine
     * Research into Libraries and Canvas, Research into AnalyserNode, implementing basic webpage and Canvas
 * Conor McCoy
-    * Research into AudioMotion, looking into the demo for AudioMotion. Attempted to get an audio player interface, but wasn't able to get it linked to the visualizer.
-    * Research into AudioMotion, looking into the demo for AudioMotion, 
+    * Research into AudioMotion, looking into the demo for AudioMotion. Attempted to get an audio player interface, but wasn't able to get it linked to the visualizer. Deployed to Render.
 
 ### 4. Instructions
 * 1) Pull the repo
