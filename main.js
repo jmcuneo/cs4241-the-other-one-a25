@@ -41,7 +41,9 @@ const app = {
         const knotFolder = this.pane.addFolder({ title: 'Knot Controls' })
         const knotAnimationFolder = this.pane.addFolder({ title: 'Knot Animation' })
         const cubeFolder = this.pane.addFolder({ title: 'Cube Controls' })
+        const cubeAnimationFolder = this.pane.addFolder({ title: 'Cube Animation' })
         const sphereFolder = this.pane.addFolder({ title: 'Sphere Controls' })
+        const sphereAnimationFolder = this.pane.addFolder({ title: 'Sphere Animation' })
 
         // Add animation parameters
         this.animationParams = {
@@ -52,13 +54,13 @@ const app = {
             pulseScale: 0.2,
             pulseSpeed: 2
         }
-        
+
         // Knot controls
         knotFolder.addBinding(this.objects.knot.rotation, 'x', { min: 0, max: Math.PI * 2 })
         knotFolder.addBinding(this.objects.knot.rotation, 'y', { min: 0, max: Math.PI * 2 })
         knotFolder.addBinding(this.objects.knot.rotation, 'z', { min: 0, max: Math.PI * 2 })
         knotFolder.addBinding(this.objects.knot.scale, 'x', { min: 0.1, max: 3, step: 0.1 })
-        
+
         // Knot animation controls
         knotAnimationFolder.addBinding(this.animationParams, 'verticalOscillation', { min: 0, max: 10, step: 0.5 })
         knotAnimationFolder.addBinding(this.animationParams, 'depthOscillation', { min: 0, max: 10, step: 0.5 })
@@ -71,29 +73,45 @@ const app = {
         cubeFolder.addBinding(this.objects.cube.rotation, 'y', { min: 0, max: Math.PI * 2 })
         cubeFolder.addBinding(this.objects.cube.rotation, 'z', { min: 0, max: Math.PI * 2 })
 
+        //Cube position controls
+        cubeAnimationFolder.addBinding(this.animationParams, 'verticalOscillation', { min: 0, max: 10, step: 0.5 })
+        cubeAnimationFolder.addBinding(this.animationParams, 'depthOscillation', { min: 0, max: 10, step: 0.5 })
+        cubeAnimationFolder.addBinding(this.animationParams, 'verticalSpeed', { min: 0.1, max: 5, step: 0.1 })
+        cubeAnimationFolder.addBinding(this.animationParams, 'depthSpeed', { min: 0.1, max: 5, step: 0.1 })
+        cubeAnimationFolder.addBinding(this.animationParams, 'pulseScale', { min: 0, max: 1, step: 0.05 })
+        cubeAnimationFolder.addBinding(this.animationParams, 'pulseSpeed', { min: 0.1, max: 5, step: 0.1 })
+
         // Sphere controls
         sphereFolder.addBinding(this.objects.sphere.rotation, 'x', { min: 0, max: Math.PI * 2 })
         sphereFolder.addBinding(this.objects.sphere.rotation, 'y', { min: 0, max: Math.PI * 2 })
         sphereFolder.addBinding(this.objects.sphere.rotation, 'z', { min: 0, max: Math.PI * 2 })
+
+        // Sphere animation controls
+        sphereAnimationFolder.addBinding(this.animationParams, 'verticalOscillation', { min: 0, max: 10, step: 0.5 })
+        sphereAnimationFolder.addBinding(this.animationParams, 'depthOscillation', { min: 0, max: 10, step: 0.5 })
+        sphereAnimationFolder.addBinding(this.animationParams, 'verticalSpeed', { min: 0.1, max: 5, step: 0.1 })
+        sphereAnimationFolder.addBinding(this.animationParams, 'depthSpeed', { min: 0.1, max: 5, step: 0.1 })
+        sphereAnimationFolder.addBinding(this.animationParams, 'pulseScale', { min: 0, max: 1, step: 0.05 })
+        sphereAnimationFolder.addBinding(this.animationParams, 'pulseSpeed', { min: 0.1, max: 5, step: 0.1 })
     },
 
     // Animation loop
     render() {
         // Track the time for smooth animations
         const time = performance.now() * 0.001; // convert to seconds
-        
+
         // Animate knot with more complex movement
         this.objects.knot.rotation.x += 0.015;
         this.objects.knot.rotation.y += 0.02;
-        
+
         // Add oscillating movement to the knot using the configurable parameters
         this.objects.knot.position.y = Math.sin(time * this.animationParams.verticalSpeed) * this.animationParams.verticalOscillation;
         this.objects.knot.position.z = Math.cos(time * this.animationParams.depthSpeed) * this.animationParams.depthOscillation;
-        
+
         // Scale pulsating effect with configurable parameters
         const scale = 1 + Math.sin(time * this.animationParams.pulseSpeed) * this.animationParams.pulseScale;
         this.objects.knot.scale.set(scale, scale, scale);
-        
+
         // Animate other objects
         this.objects.cube.rotation.y += 0.02;
         this.objects.cube.rotation.x += 0.01;
