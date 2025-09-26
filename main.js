@@ -14,10 +14,7 @@ const app = {
         this.renderer = this.sceneManager.getRenderer()
         this.objects = this.sceneManager.getObjects()
 
-        // Take whatever function you're calling this on and creates a 
-        // permanent execution context. Ensures that when we call render(),
-        // "this" is not assumed to be the global "this" but the function reference.
-        // Called "hard binding"
+        // Bind the render method to the current context
         this.render = this.render.bind(this)
         this.render()
 
@@ -36,16 +33,19 @@ const app = {
         knotFolder.addBinding(this.objects.knot.rotation, 'x', { min: 0, max: Math.PI * 2 })
         knotFolder.addBinding(this.objects.knot.rotation, 'y', { min: 0, max: Math.PI * 2 })
         knotFolder.addBinding(this.objects.knot.rotation, 'z', { min: 0, max: Math.PI * 2 })
+        knotFolder.addBinding(this.objects.knot, 'visible')
 
         // Cube controls
         cubeFolder.addBinding(this.objects.cube.rotation, 'x', { min: 0, max: Math.PI * 2 })
         cubeFolder.addBinding(this.objects.cube.rotation, 'y', { min: 0, max: Math.PI * 2 })
         cubeFolder.addBinding(this.objects.cube.rotation, 'z', { min: 0, max: Math.PI * 2 })
+        cubeFolder.addBinding(this.objects.cube, 'visible')
 
         // Sphere controls
         sphereFolder.addBinding(this.objects.sphere.rotation, 'x', { min: 0, max: Math.PI * 2 })
         sphereFolder.addBinding(this.objects.sphere.rotation, 'y', { min: 0, max: Math.PI * 2 })
         sphereFolder.addBinding(this.objects.sphere.rotation, 'z', { min: 0, max: Math.PI * 2 })
+        sphereFolder.addBinding(this.objects.sphere, 'visible')
     },
 
     // Animation loop
