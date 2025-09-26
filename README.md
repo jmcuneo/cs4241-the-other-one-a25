@@ -33,7 +33,7 @@ The original application was a simple game wishlist manager built with vanilla H
 - `POST /submit` - Add/update games
 - `POST /remove` - Delete games
 
-**Real-time Calculations**
+**Real time Calculations**
 - Total price of all games
 - Average price calculation
 - Automatic updates on data changes
