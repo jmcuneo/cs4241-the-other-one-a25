@@ -28,13 +28,15 @@ export class SceneManager {
         this.knot = Objects.createKnot()
         this.cube = Objects.createCube()
         this.sphere = Objects.createSphere()
+        this.torus = Objects.createTorus()
 
         this.scene.add(this.knot)
         this.scene.add(this.cube)
         this.scene.add(this.sphere)
+        this.scene.add(this.torus)
 
         // Store objects for easy access
-        this.objects = [this.knot, this.cube, this.sphere]
+        this.objects = [this.knot, this.cube, this.sphere, this.torus]
     }
 
     getScene() {
@@ -54,6 +56,7 @@ export class SceneManager {
             knot: this.knot,
             cube: this.cube,
             sphere: this.sphere,
+            torus: this.torus,
             all: this.objects
         }
     }

@@ -39,4 +39,20 @@ export class Objects {
 
         return sphere
     }
+
+    static createTorus() {
+        const geometry = new THREE.TorusGeometry(7, 2, 16, 100)
+        const material = new THREE.MeshPhongMaterial({
+            color: 0xffff00,
+            shininess: 800,
+            emissive: 0x222200
+        })
+        const torus = new THREE.Mesh(geometry, material)
+
+        // Position the torus above the center so it doesn't overlap others
+        torus.position.y = 12
+        torus.rotation.x = Math.PI / 6
+
+        return torus
+    }
 }
