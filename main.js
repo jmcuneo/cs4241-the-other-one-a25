@@ -22,6 +22,8 @@ const app = {
 
         this.createLights()
         this.knot = this.createKnot()
+        this.points = this.createPoints()
+        this.points2 = this.createPoints2()
         this.torus = this.createTorus()
 
         // Take whatever function you're calling this on and creates a
@@ -63,6 +65,36 @@ const app = {
         return knot
     },
 
+    createPoints() {
+        const radius = 17;
+        const widthSegments = 12;
+        const heightSegments = 8;
+        const geometry = new THREE.SphereGeometry( radius, widthSegments, heightSegments );
+        const material = new THREE.PointsMaterial({
+            color: 'blue',
+            size: 1,
+        });
+
+        const points = new THREE.Points(geometry, material);
+        this.scene.add(points);
+        return points;
+    },
+
+    createPoints2() {
+        const radius = 17;
+        const widthSegments = 12;
+        const heightSegments = 8;
+        const geometry = new THREE.SphereGeometry( radius, widthSegments, heightSegments );
+        const material = new THREE.PointsMaterial({
+            color: 'pink',
+            size: 1,
+        });
+
+        const points2 = new THREE.Points(geometry, material);
+        this.scene.add(points2);
+        return points2;
+    },
+
     // Create cube
     createTorus() {
         const tubegeo = new THREE.TorusGeometry(3, .5, 8, 24)
@@ -79,6 +111,10 @@ const app = {
         // Slowing increment the rotation angle over time to animate the knot
         this.knot.rotation.x += .025
         this.torus.rotation.x += 0.04
+        this.points.rotation.x += .025
+        this.points.rotation.y += .025
+        this.points2.rotation.x -= .025
+        this.points2.rotation.y -= .025
 
         // Render using the scene and camera specified earlier
         this.renderer.render( this.scene, this.camera )
