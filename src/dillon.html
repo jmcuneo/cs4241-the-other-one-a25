@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<body>
+<button id = "Data1">Data Set 1</button>
+<button id = "Data2">Data Set 2</button>
+<script>
+  const data = d3.tsvParse(`data1	data2
+83358	400
+32503	421
+53488	603
+72945	313
+84379	256`, d3.autoType);
+
+  const width = 640;
+  const height = Math.min(500, width / 2);
+  const outerRadius = height / 2 - 10;
+  const innerRadius = outerRadius * 0.75;
+
+  const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+  const svg = d3.create("svg")
+      .attr("viewBox", [-width/2, -height/2, width, height]);
+
+  const arc = d3.arc()
+      .innerRadius(innerRadius)
+      .outerRadius(outerRadius);
+
+  const pie = d3.pie().sort(null).value(d => d["data1"]);
+
+  const path = svg.datum(data).selectAll("path")
+      .data(pie(data))
+      .join("path")
+      .attr("fill", (d, i) => color(i))
+      .attr("d", arc)
+      .each(function(d) { this._current = d; });
+
+  function change(value) {
+    pie.value(d => d[value]);
+    path.data(pie(data), d => d.index);
+    path.transition().duration(750).attrTween("d", arcTween);
+  }
+
+  function arcTween(a) {
+    const i = d3.interpolate(this._current, a);
+    this._current = i(0);
+    return t => arc(i(t));
+  }
+  
+
+  document.body.appendChild(Object.assign(svg.node(), {change}));
+
+  const button1 = document.getElementById("Data1")
+  button1.addEventListener("click", function() {
+    svg.node().change("data1")
+  })
+
+   const button2 = document.getElementById("Data2")
+  button2.addEventListener("click", function() {
+    svg.node().change("data2")
+  })
+</script>
+</body>

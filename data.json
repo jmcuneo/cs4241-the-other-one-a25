@@ -1,0 +1,24 @@
+{
+  "data": [
+    {
+      "name": "Android",
+      "value": 44.51
+    },
+    {
+      "name": "Windows",
+      "value": 27.39
+    },
+    {
+      "name": "iOS",
+      "value": 15.94
+    },
+    {
+      "name": "macOS",
+      "value": 5.29
+    },
+    {
+      "name": "Unknown / Others",
+      "value": 6.86
+    }
+  ]
+}
