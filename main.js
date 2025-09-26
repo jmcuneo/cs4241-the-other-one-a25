@@ -111,8 +111,16 @@ const app = {
     createSphere() {
         const spheregeo = new THREE.SphereGeometry(2, 32, 16);
 
-        const mat = new THREE.MeshToonMaterial({ color: 0xffc0cb, shininess:2000 })
+        const mat = new THREE.MeshPhongMaterial({
+            color: 0xffd700,
+            emissive: 0xffa500,
+            emissiveIntensity: 3.0,
+            shininess: 2000,
+        })
         const sphere = new THREE.Mesh( spheregeo, mat )
+
+        const sunLight = new THREE.PointLight(0xffd700, 50, 200)
+        sphere.add(sunLight)
 
         this.scene.add( sphere )
         return sphere
