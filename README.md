@@ -1,15 +1,25 @@
-# ICE 04: The Other One
+## ICE04 Group 1 - Components
 
-In this activity, you will complete a simplified version of A4, specifically using the option you did NOT chooose for that assignment.
+### Group Members
+Arianna Xie
+Amanda Longo
+Nia Junod
+Grace Mahoney
+
+### Hosting Link
+https://ice04-group-1.onrender.com/ice04
+we used render because render rules!
 
 ### Instructions
+to log in:
+username: testuser
+password: password123
 
-1. Divide yourselves into groups of 3 - 5 students. Everybody in your group should have chosen the same option for A4 (creative coding OR components). **MAKE SURE TO REGISTER YOUR GROUP ON CANVAS** just as you've done with previous group assignments in this class.
+It's lowkey confusing when you go to the render link, because the original A3 and the Svelte A3 is the exact same. And in the repository, there is the original A3 files and the additional Svelte A3. 
 
-2. Go to the version of A4 your group did not choose and complete the assignment with the following modifications:
-    * **[Components](https://github.com/jmcuneo/a4-components-a25):** You should start with the existing submission for A2 or A3 for one of your group members.
-    * **[Creative Coding](https://github.com/jmcuneo/a4-creative-coding-a25):** Your group should choose which of the technologies on the list you want to explore. You must choose at least one but can do more than one.
-    * Discuss with your team what you think you can reasonably accomplish by the end of the class period. **As this is an in-class activity, we are NOT expecting the same level of complexity as A4,** although we are expecting you to demonstrate a basic understanding of the technologies in question. Do what you can with the time you have and take advantage of the fact that there are multiple people working on this (whereas A4 is an individual effort). This will be a bit of an exercise in time management, project estimation, and team communication.
-    * Your README should include your hosting link, the name of all group members, **your group number**, the contributions of each group member, and any instructions necessary to use the application. You can ignore the points in A4 about goals and challenges.
-    * I suggest one group member fork this assignment and then add the other group members as contributors.
-    * You should submit a pull request against THIS assignment, NOT A4.
+When you go to the render link, and open the nav bar, you can click Shift Tracker or go to the nav bar and click ICE04 (Svelte)
+
+You will see all of the components within the login page and the application, as we used Svelte for components, and at the top, where you see the link. It'll show ice04 for the Svelte version and ice04# when it's the original A3. It's confusing to differentiate between the two since the styling is the same. 
+
+### Contributions
+We all worked cohesively together using Nias computer, to prevent merge conflicts. Since we had to complete this assignment within the class period, merge conflicts would have occured if we all worked on different branches. We decided to use her shift tracker since it seemed the easiest to implement components into what she already had. We decided to use Svelte because none of us have had any experience with it and we all felt like it would be something fun to learn. We searched up all the necessary documentation and pair programmed as nia as the typer, and us as the guider when it came to documentation and code implementation. We kept the same A3 files from what Nia had used and just added the components section within the client.
