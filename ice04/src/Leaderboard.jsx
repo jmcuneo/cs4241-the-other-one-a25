@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
 async function api(path, opts = {}) {
-  // ensure cookies (session) are sent
   if (!opts.credentials) opts.credentials = 'include'
   const res = await fetch(path, opts)
   if (!res.ok) {
@@ -39,14 +38,12 @@ export default function Leaderboard() {
     setError(null)
 
     const list = []
-    // load server scores (if available)
     const res = await api('/api/results')
     if (res.ok) {
       const serverList = res.body || []
       serverList.forEach(s => list.push(s))
     }
 
-    // load local scores saved while unauthenticated
     try {
       const localKey = 'localScores'
       const local = JSON.parse(localStorage.getItem(localKey) || '[]')
@@ -57,11 +54,9 @@ export default function Leaderboard() {
       setLocalDebug({ error: 'parse error' })
     }
 
-    // deduplicate by _id (server ids and local-... ids)
     const byId = new Map()
     list.forEach(item => {
       const id = item._id || `${item.name}-${item.createdAt}`
-      // normalize numeric fields
       const normalized = Object.assign({}, item, { score: Number(item.score) || 0, clicksPerSecond: Number(item.clicksPerSecond) || 0 })
       byId.set(id, normalized)
     })

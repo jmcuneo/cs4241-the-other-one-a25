@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from 'react'
 
 async function api(path, opts = {}) {
-  // ensure cookies (session) are sent
   if (!opts.credentials) opts.credentials = 'include'
   const res = await fetch(path, opts)
   if (!res.ok) {
@@ -33,7 +32,6 @@ export default function Game() {
   const clicksRef = useRef(0)
 
   useEffect(() => {
-    // check auth on mount
     (async () => {
       const res = await api('/api/me')
       if (res.ok && res.body && res.body.loggedIn) {
@@ -51,7 +49,6 @@ export default function Game() {
     timerRef.current = setInterval(() => {
       setTimer((t) => {
         if (t <= 1) {
-          // will reach 0, end game
           clearInterval(timerRef.current)
           endGame()
           return 0
@@ -60,7 +57,6 @@ export default function Game() {
       })
     }, 1000)
     return () => clearInterval(timerRef.current)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameActive])
 
   const startGame = (e) => {
@@ -83,7 +79,6 @@ export default function Game() {
   }
 
   const endGame = async () => {
-    // guard against multiple calls
     if (endingRef.current) return
     endingRef.current = true
     clearInterval(timerRef.current)
@@ -92,7 +87,6 @@ export default function Game() {
   const finalClicks = (typeof clicksRef.current === 'number' && clicksRef.current >= 0) ? clicksRef.current : clicks
   const cps = (finalClicks / totalTime) || 0
   const label = labelInput.trim() || (currentUsername ? `${currentUsername} run` : 'Anonymous run')
-    // always save a local temporary copy so leaderboard shows the score immediately
     const localKey = 'localScores'
     const tmpId = `local-${Date.now()}-${Math.floor(Math.random()*10000)}`
   const item = { name: label, score: Number(finalClicks) || 0, clicksPerSecond: Number(cps.toFixed(2)) || 0, createdAt: new Date().toISOString(), _id: tmpId }
@@ -102,7 +96,6 @@ export default function Game() {
       localStorage.setItem(localKey, JSON.stringify(existing))
       try { window.dispatchEvent(new CustomEvent('scoreSaved')) } catch (e) {}
     } catch (e) {
-      // ignore local save errors
     }
 
     if (currentUsername) {
@@ -116,7 +109,6 @@ export default function Game() {
 
       if (res.ok) {
         setMessage('Saved!')
-        // remove the temporary local copy now that server save succeeded
         try {
           const existing2 = JSON.parse(localStorage.getItem(localKey) || '[]')
           const filtered = existing2.filter(s => s._id !== tmpId)
@@ -125,7 +117,6 @@ export default function Game() {
         try { window.dispatchEvent(new CustomEvent('scoreSaved')) } catch (e) {}
       } else {
         setMessage('Could not save to server: ' + (res.body?.error || JSON.stringify(res.body)))
-        // keep local copy so score still appears
       }
     } else {
   setMessage(`Run complete — score ${finalClicks} (${cps.toFixed(2)} clicks/sec). Saved locally.`)
@@ -149,10 +140,6 @@ export default function Game() {
       </div>
 
       <div id="gameMessage">{message}</div>
-
-      <div style={{ marginTop: 12 }}>
-        <div>Signed in as: <strong>{escapeHtml(currentUsername)}</strong></div>
-      </div>
     </div>
   )
 }
