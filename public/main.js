@@ -22,16 +22,6 @@ const cube = new THREE.Mesh( geometry, materials );
 scene.add( cube );
 
 camera.position.z = 5;
-/*
-function animate() {
-
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
-
-  renderer.render( scene, camera );
-
-}
-  */
 
 function animate() {
   renderer.render( scene, camera );
@@ -95,4 +85,9 @@ function addCube() {
   renderer.setAnimationLoop( t => spin(cube, t));
 }
 
-window.addEventListener('keydown', addCube);
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'a') {
+    addCube(); // press "a" to add cube
+  }
+});
+
