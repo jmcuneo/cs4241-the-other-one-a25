@@ -1,3 +1,4 @@
+import "./main.css"
 import { useState, useEffect } from "react";
 
 interface Game {
@@ -20,7 +21,7 @@ export default function GameWishlist() {
 
   const loadData = async () => {
     try {
-      const response = await fetch("/appdata", {
+      const response = await fetch("http://localhost:3001/appdata", {
         method: "GET",
       });
       const contents = await response.json();
@@ -50,7 +51,7 @@ export default function GameWishlist() {
     setEditingIndex(null);
 
     try {
-      const response = await fetch("/submit", {
+      const response = await fetch("http://localhost:3001/submit", {
         method: "POST",
         body
       });
@@ -67,7 +68,7 @@ export default function GameWishlist() {
     const body = JSON.stringify(rowNum);
     
     try {
-      const response = await fetch("/remove", {
+      const response = await fetch("http://localhost:3001/remove", {
         method: "POST",
         body
       });
@@ -90,16 +91,8 @@ export default function GameWishlist() {
   const averagePrice = games.length > 0 ? totalPrice / games.length : 0;
 
   return (
-    <div style={{ 
-      fontFamily: 'Inter, sans-serif',
-      textAlign: 'center',
-      padding: '20px',
-      backgroundColor: '#f5f5f5',
-      minHeight: '100vh'
-    }}>
-      
+    <div>
       <h1>Game Wishlist</h1>
-      
       <div className="flex-row">
         <table id="wishlist">
           <thead>
@@ -171,7 +164,6 @@ export default function GameWishlist() {
           </form>
         </div>
       </div>
-      
       <form>
         <table id="derived">
           <thead>
