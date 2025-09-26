@@ -1,0 +1,12 @@
+{
+  "name": "a2-owenhart",
+  "version": "1.0.0",
+  "description": "Second assignment of CS4241",
+  "author": "Owen Hart",
+  "scripts": {
+    "start": "node server.improved.js"
+  },
+  "dependencies": {
+    "mime": "^2.6.0"
+  }
+}
