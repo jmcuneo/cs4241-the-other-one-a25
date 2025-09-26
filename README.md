@@ -12,7 +12,7 @@ Link: FILL
 - Ken Sebastian
     - Did ReadME; tried my own visualization, but couldn't get a real working version to push to deploy
 - Akaash Walker
-    - FILL
+    - Set up repo, created basic donut chart of OS marketshare, created basic navigation bar
 - Cameron Norris
     - Created the Arc Tween that randomly moves about the circle
 - Dillon Bresnahan
