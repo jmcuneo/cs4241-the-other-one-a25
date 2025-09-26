@@ -8,8 +8,10 @@
     "start": "node server.improved.js"
   },
   "dependencies": {
+    "express": "^5.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "vite-express": "^0.21.1"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",

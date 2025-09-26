@@ -1,5 +1,5 @@
 import "./main.css"
-import Table from "./table";
+import Table from "./components/Table";
 
 export default function App() {
 

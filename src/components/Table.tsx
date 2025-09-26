@@ -14,7 +14,5 @@ export default function Table() {
                 </table>
             </div>
         </div>
-
     )
-
 }
