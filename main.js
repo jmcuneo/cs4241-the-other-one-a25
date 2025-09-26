@@ -1,39 +1,57 @@
 // import our three.js reference
-import * as THREE from 'https://unpkg.com/three/build/three.module.js'
-import { Pane } from 'https://unpkg.com/tweakpane'
+import * as THREE from 'three';
+import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js';
+
+import { Pane } from 'tweakpane'
 
 const app = {
   init() {
+    // Clock
+    this.clock = new THREE.Clock();
+
     // Starting object. Will be populated with camera, lighting objects, etc.
     this.scene = new THREE.Scene()
+    this.scene.background = new THREE.Color( 0xbfd1e5 );
 
     // Create a new camera
-    this.camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 1000 )
-    this.camera.position.z = 50 
+    this.camera = new THREE.PerspectiveCamera(75 , window.innerWidth/window.innerHeight, 0.1, 1000 )
+    this.camera.position.y = 1 
 
     // Specify the type of renderer to use. In this case, it's a WebGL renderer.
     this.renderer = new THREE.WebGLRenderer()
 
     // Fill the entire window
-    this.renderer.setSize( window.innerWidth, window.innerHeight )
+    this.renderer.setSize(window.innerWidth, window.innerHeight)
+    document.body.appendChild(this.renderer.domElement)
 
-    // Creates the canvas element and appends it to our page
-    document.body.appendChild( this.renderer.domElement )
+    // Controls
+    this.controls = new FirstPersonControls( this.camera, this.renderer.domElement );
+
+    this.controls.movementSpeed = 1;
+    this.controls.lookSpeed = 0.05;
+    this.controls.lookVertical = true;
+    this.controls.activeLook = false;
 	
+    // Add Lights
     this.createLights()
     this.knot = this.createKnot()
 
-    // Take whatever function you're calling this on and creates a 
-    // permanent execution context. Ensures that when we call render(),
-    // "this" is not assumed to be the global "this" but the function reference.
-    // Called "hard binding"
+    // Add Plane
+    this.floor = this.createFloor()
+
+    // Render
     this.render = this.render.bind( this )
     this.render()
 
-    // create a new tweakpane instance
+    // Create Tweak Pane
     this.pane = new Pane()
-    // setup our pane to control the know rotation on the y axis
-    this.pane.addBinding( this.knot.rotation, 'y' )
+    this.pane.addBinding(this.camera, 'fov', {min: 40, max: 120, step: 1}).on('change', () => {
+        this.camera.updateProjectionMatrix();
+    });
+    this.pane.addBinding(this.controls, 'activeLook')
+    this.pane.addBinding(this.camera, 'position')
+
+    this.renderer.domElement.addEventListener('resize', this.onWindowResize );
   },
 
   createLights() {
@@ -60,16 +78,36 @@ const app = {
     return knot
   },
 
+  createFloor() {
+    const planeGeometry = new THREE.PlaneGeometry(10, 10, 1, 1); 
+    const planeMaterial = new THREE.MeshBasicMaterial({ 
+        color: 0x252525, 
+        side: THREE.DoubleSide
+    });
+    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.rotation.x = Math.PI / 2;
+    plane.position.x = 0
+    plane.position.y = 0
+    plane.position.z = 0
+    this.scene.add(plane);
+  },
+
+  onWindowResize() {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize( window.innerWidth, window.innerHeight );
+    this.controls.handleResize();
+  },
+
   // Animation loop
   render() {
-    // Slowing increment the rotation angle over time to animate the knot
-    this.knot.rotation.x += .025
+    // Control Update
+    this.controls.update(this.clock.getDelta());
 
-    // Render using the scene and camera specified earlier
+    // Render with renderer
     this.renderer.render( this.scene, this.camera )
 
-    // Schedules a function to be called the next time the graphics engine
-    // refreshes your browser window. Necessary for the animation to occur.
+    // Render frame
     window.requestAnimationFrame( this.render )
   }
 }
