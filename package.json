@@ -12,6 +12,10 @@
   },
   "private": true,
   "dependencies": {
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
   }
 }
