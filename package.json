@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/JackRichard889/cs4241-the-other-one-a25#readme",
   "dependencies": {
+    "canvas": "^3.2.0",
     "express": "^5.1.0"
   }
 }
