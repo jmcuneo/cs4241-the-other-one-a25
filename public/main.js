@@ -31,6 +31,13 @@ function animate() {
   renderer.render( scene, camera );
 
 }
+
+window.onload= () => {
+    const slider = document.createElement("input")
+    slider.type="range"
+    slider.onchange
+    document.body.appendChild(slider)
+}
   */
 
 function animate() {
@@ -53,6 +60,20 @@ async function cubeRotation() {
   zSlider.addEventListener('input', () => {
     cube.rotation.z = THREE.MathUtils.degToRad(zSlider.value);
   });
+    const camX = document.getElementById('camX');
+    const camY = document.getElementById('camY');
+    const camZ = document.getElementById('camZ');
+    camX.addEventListener('input', () => {
+        camera.position.x = camX.value/100
+    });
+
+    camY.addEventListener('input', () => {
+        camera.position.y = camY.value/100
+    });
+
+    camZ.addEventListener('input', () => {
+        camera.position.z = camZ.value/100
+    });
 }
 
 cubeRotation();
