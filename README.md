@@ -2,10 +2,10 @@
 
 Render:
 
-Group Members: Isabel Rivera-Cruz, Christine Ngo, Kaylie Quach
+Group Members: Isabel Cruz Rivera, Christine Ngo, Kaylie Quach
 
 Contributions:
-   * Isabel Rivera-Cruz: added taurus, attempted resizing of the sphere using sliders
+   * Isabel Cruz Rivera: added taurus, attempted resizing of the sphere using sliders
    * Christine Ngo: added 2 point shapes, implemented music
    * Kaylie Quach: added sphere, used point light to create glow effect for sphere
 
