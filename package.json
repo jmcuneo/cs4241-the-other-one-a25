@@ -1,7 +1,7 @@
 {
   "name": "ICE04",
   "version": "1.0.0",
-  "description": "ICE04 of CS4241",
+  "description": "ICE04 of CS4241, starts with existing OwenHart-A2",
   "author": "Group 15",
   "scripts": {
     "dev": "vite",
