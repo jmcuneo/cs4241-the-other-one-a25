@@ -1,0 +1,15 @@
+{
+  "name": "ice04_group_project",
+  "version": "1.0.0",
+  "description": "Basic Three.js + Express project using CDN",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "cors": "^2.8.5",
+    "nodemon": "^3.1.10"
+  }
+}
