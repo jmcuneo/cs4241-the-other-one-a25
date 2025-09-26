@@ -19,6 +19,14 @@ async function loadSound(fileName, location) {
     return node;
 }
 
+const catButton = document.querySelector("#cat");
+const cowButton = document.querySelector("#cow");
+const pigButton = document.querySelector("#pig");
+
+catButton.addEventListener("click", () => loadSound("audioFiles/cat-meow-401729.mp3", 0).then(x => x.start()));
+cowButton.addEventListener("click", () => loadSound("audioFiles/cow-mooing-343423.mp3", 1).then(x => x.start()));
+pigButton.addEventListener("click", () => loadSound("audioFiles/pig-oink-47167.mp3", -1).then(x => x.start()));
+
 // Visualization of audio section
 
 analyser.fftSize = 2048;
@@ -66,11 +74,3 @@ function draw() {
 }
 
 draw();
-
-const catButton = document.querySelector("#cat");
-const cowButton = document.querySelector("#cow");
-const pigButton = document.querySelector("#pig");
-
-catButton.addEventListener("click", () => loadSound("audioFiles/cat-meow-401729.mp3", 0).then(x => x.start()));
-cowButton.addEventListener("click", () => loadSound("audioFiles/cow-mooing-343423.mp3", 1).then(x => x.start()));
-pigButton.addEventListener("click", () => loadSound("audioFiles/pig-oink-47167.mp3", -1).then(x => x.start()));
