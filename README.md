@@ -15,7 +15,7 @@ to log in:
 username: testuser
 password: password123
 
-It's lowkey confusing when you go to the render link, because the original A3 and the Svelte A3 is the exact same. 
+It's lowkey confusing when you go to the render link, because the original A3 and the Svelte A3 is the exact same. And in the repository, there is the original A3 files and the additional Svelte A3. 
 
 When you go to the render link, and open the nav bar, you can click Shift Tracker or go to the nav bar and click ICE04 (Svelte)
 
