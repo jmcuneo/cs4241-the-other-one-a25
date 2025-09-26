@@ -5,7 +5,7 @@
 
 ### Group 9: Ken Sebastian, Akaash Walker, Cameron Norris, Dillon Bresnahan
 
-Link: FILL
+Link: https://cs4241-the-other-one-a25-egds.onrender.com/
 
 ## Contributions
 
@@ -16,4 +16,4 @@ Link: FILL
 - Cameron Norris
     - Created the Arc Tween that randomly moves about the circle
 - Dillon Bresnahan
-    - FILL
+    - Deployed to render, created circle chart that switches on button press
