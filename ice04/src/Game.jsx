@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react'
 
 async function api(path, opts = {}) {
+  // ensure cookies (session) are sent
+  if (!opts.credentials) opts.credentials = 'include'
   const res = await fetch(path, opts)
   if (!res.ok) {
     const text = await res.text()
@@ -90,13 +92,24 @@ export default function Game() {
 
       if (res.ok) {
         setMessage('Saved!')
-        // optionally reload scores (not implemented in React view)
+        // notify leaderboard to reload
+        try { window.dispatchEvent(new CustomEvent('scoreSaved')) } catch (e) {}
       } else {
         setMessage('Could not save: ' + (res.body?.error || JSON.stringify(res.body)))
       }
     } else {
-      // not signed in: show final score but don't attempt to save
-      setMessage(`Run complete — score ${clicks} (${cps.toFixed(2)} clicks/sec). Not saved (sign in to save).`)
+      // not signed in: save locally so leaderboard can show it
+      const localKey = 'localScores'
+      const item = { name: label, score: clicks, clicksPerSecond: Number(cps.toFixed(2)), createdAt: new Date().toISOString(), _id: `local-${Date.now()}` }
+      try {
+        const existing = JSON.parse(localStorage.getItem(localKey) || '[]')
+        existing.push(item)
+        localStorage.setItem(localKey, JSON.stringify(existing))
+        setMessage(`Run complete — score ${clicks} (${cps.toFixed(2)} clicks/sec). Saved locally.`)
+        try { window.dispatchEvent(new CustomEvent('scoreSaved')) } catch (e) {}
+      } catch (e) {
+        setMessage(`Run complete — score ${clicks} (${cps.toFixed(2)} clicks/sec). (Could not save locally)`)
+      }
     }
   }
 
