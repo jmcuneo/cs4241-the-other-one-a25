@@ -17,14 +17,15 @@
             function generate(){
                 ctx.clearRect(0,0,canvas.width,canvas.height);
                 let num = parseInt(document.querySelector("#num").value);
-                console.log(num);
+
+                ctx.fillStyle = "#" + Math.floor(Math.random()*16777215).toString(16)
+                ctx.fillRect(0,0,canvas.width, canvas.height);
 
                 for (let i = 0; i < num; i++){
-                    console.log("do shape");
                     let color = Math.floor(Math.random()*16777215).toString(16);
                     ctx.fillStyle = "#" + color;
 
-                    let shape = Math.floor(Math.random() * 2);
+                    let shape = Math.floor(Math.random() * 3);
                     if(shape === 0){
                         let x = Math.floor(Math.random() * canvas.width);
                         let y = Math.floor(Math.random() * canvas.height);
@@ -42,6 +43,25 @@
                         let clockwise = Math.floor(Math.random() * 2) === 1 ? false : true;
                         ctx.arc(x, y, radius, startAngle, endAngle, clockwise);
                         ctx.fill()
+                    }
+                    else if(shape === 2){
+                        const numSides = Math.floor((Math.random() * 5) + 1);
+                        const lineWidth = Math.floor((Math.random() * 30 ) + 5);
+                        let a = Math.floor(Math.random() * canvas.width);
+                        let b = Math.floor(Math.random() * canvas.height);
+                        ctx.beginPath();
+                        ctx.moveTo(a, b);
+                        for (let i = 0; i < numSides; i++){
+                            let x = Math.floor(Math.random() * canvas.width);
+                            let y = Math.floor(Math.random() * canvas.height);
+                            ctx.lineWidth = lineWidth;
+                            ctx.lineTo(x, y);
+                            ctx.strokeStyle = "#" + (Math.floor(Math.random()*16777215).toString(16));
+                            ctx.stroke();
+                            ctx.beginPath();
+                            ctx.moveTo(x, y);
+                        }
+                        ctx.closePath();
                     }
                 }
             }
