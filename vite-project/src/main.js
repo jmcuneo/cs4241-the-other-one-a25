@@ -22,7 +22,7 @@ const submit = async function( event ) {
   const body = JSON.stringify( json )
 
   try {
-    const response = await fetch( "/submit", {
+    const response = await fetch( "http://localhost:3000/submit", {
       method:"POST",
       body 
     })
@@ -91,7 +91,7 @@ const displayTodos = function() {
 
 const loadTodos = async function() {
   try {
-    const response = await fetch("/todos")
+    const response = await fetch("http://localhost:3000/todos")
     if (response.ok) {
       currentTodos = await response.json()
       displayTodos()
