@@ -1,14 +1,83 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <title>Audio Visualizer</title>
-        <link rel="stylesheet" href="css/styles.css">
-        <script src="js/index.js"></script>
-    </head>
-    <body>
-        <audio></audio>
-        <canvas id="visualizer" width="500" height="200">
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>G19 Visualizer</title>
+    <style>
+        html,body{margin:0;height:100%;background:#000;color:#fff;font-family:sans-serif}
+        #bar{position:fixed;inset:auto 0 0 0;padding:8px;background:#111;display:flex;gap:8px;align-items:center}
+        #c{position:fixed;inset:0 0 40px 0;display:block}
+        input[type=file]{background:#222;color:#fff;border:1px solid #333;padding:6px}
+        #msg{opacity:.8}
+    </style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="bar">
+    <input id="file" type="file" accept="audio/*">
+    <span id="msg">choose file to do cool things with</span>
+</div>
 
-        </canvas>
-    </body>
+<script>
+
+    const cv=document.getElementById('c')
+    const cx=cv.getContext('2d')
+    function size(){cv.width=innerWidth;cv.height=innerHeight-40}
+
+    addEventListener('resize',size);size()
+
+    const fi=document.getElementById('file')
+    const msg=document.getElementById('msg')
+    let ac,an,data,src,started=false
+
+    fi.onchange=async e=>{
+
+        const f=e.target.files&&e.target.files[0]
+        if(!f)return
+        if(ac){ac.close();started=false}
+        ac=new (window.AudioContext||window.webkitAudioContext)()
+
+        an=ac.createAnalyser()
+        an.fftSize=256
+        an.smoothingTimeConstant=.7
+        data=new Uint8Array(an.frequencyBinCount)
+        const buf=await f.arrayBuffer()
+        const audioBuf=await ac.decodeAudioData(buf)
+
+        src=ac.createBufferSource()
+        src.buffer=audioBuf
+        src.connect(an)
+        an.connect(ac.destination)
+
+        src.start()
+        msg.textContent='playing'
+        if(!started){started=true;draw()}
+
+    }
+
+    function draw(){
+        requestAnimationFrame(draw)
+        if(!an)return
+
+        an.getByteFrequencyData(data)
+        cx.fillStyle='#000'
+        cx.fillRect(0,0,cv.width,cv.height)
+        const n=64
+        const step=Math.floor(data.length/n)
+        const w=cv.width/n
+
+        for(let i=0;i<n;i++){
+            const v=data[i*step]/255
+            const h=v*cv.height*.9
+            const x=i*w+w*.1
+            const y=cv.height-h
+
+            cx.fillStyle=`hsl(${i/n*300} 90% 55%)`
+            cx.fillRect(x,y,w*.8,h)
+        }
+    }
+
+</script>
+
+</body>
 </html>
