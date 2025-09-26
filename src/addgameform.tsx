@@ -15,7 +15,7 @@ export default function AddGameForm({ onSubmit, initialValues, isEditing = false
   const [gameReview, setGameReview] = useState(initialValues?.review || "");
   const [gamePrice, setGamePrice] = useState(initialValues?.price || "");
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (gameName && gameReview && gamePrice) {
       onSubmit(gameName, gameReview, gamePrice);
