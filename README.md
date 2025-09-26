@@ -15,4 +15,4 @@
 * Ashley Fontaine
     * Research into Libraries and Canvas, Research into AnalyserNode, implementing basic webpage and Canvas
 * Conor McCoy
-    * Research into AudioMotion, looking into the demo for AudioMotion, 
+    * Research into AudioMotion, looking into the demo for AudioMotion. Attempted to get an audio player interface, but wasn't able to get it linked to the visualizer.
