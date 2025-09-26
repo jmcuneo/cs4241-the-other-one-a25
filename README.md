@@ -60,18 +60,12 @@ The conversion maintains the original visual design using:
 5. **Scalability**: Easier to add new features and components
 6. **Modern Patterns**: Follows current React best practices
 
-## Usage
-
 ### Development
-```bash
 npm install
 npm start
-```
 
 ### Building for Production
-```bash
 npm run build
-```
 
 ## Future Enhancements
 
@@ -92,8 +86,8 @@ npm run build
 
 ## Dependencies
 
-- React 18+
-- TypeScript 4.5+
-- Modern browser with ES6+ support
+- React
+- TypeScript
+- Modern browser
 
 This conversion demonstrates how legacy web applications can be modernized while preserving functionality and improving code quality through React's component based architecture.
