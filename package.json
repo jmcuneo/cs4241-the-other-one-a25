@@ -10,5 +10,8 @@
     "mime": "^2.6.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "vite": "^7.1.7"
   }
 }

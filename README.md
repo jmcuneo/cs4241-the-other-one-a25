@@ -1,11 +1,15 @@
-# ICE 04: The Other One
+# ICE04: Components
+# ICE4 Group 10 - Colin Lemire, Ethan Shanbaum, Aditri Thakur, Benedict Antwi
+Link: https://cs4241-ice04-group10.onrender.com/
+---
 
-In this activity, you will complete a simplified version of A4, specifically using the option you did NOT chooose for that assignment.
+## Contributions
+- Colin: README, React table with Benedict
+- Aditri: React forms, Put website up on Render
+- Benedict: Worked on implementing Vite, implementing React table
+- Ethan: Worked on implementing Vite, React forms
 
-### Instructions
-
-1. Divide yourselves into groups of 3 - 5 students. Everybody in your group should have chosen the same option for A4 (creative coding OR components). **MAKE SURE TO REGISTER YOUR GROUP ON CANVAS** just as you've done with previous group assignments in this class.
-
+## Application Details
 2. Go to the version of A4 your group did not choose and complete the assignment with the following modifications:
     * **[Components](https://github.com/jmcuneo/a4-components-a25):** You should start with the existing submission for A2 or A3 for one of your group members.
     * **[Creative Coding](https://github.com/jmcuneo/a4-creative-coding-a25):** Your group should choose which of the technologies on the list you want to explore. You must choose at least one but can do more than one.
