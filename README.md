@@ -16,7 +16,9 @@ Project file setup: Michael and Christopher
 
 Rotate main central cube: Michael
 
-Move camera: Christopher 
+Move camera sliders: Christopher
+
+Zoom and pan camera with mouse: Michael
 
 Add cubes: Kyra and Ceci
 
