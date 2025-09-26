@@ -1,0 +1,23 @@
+{
+  "name": "cs4241-the-other-one-a25",
+  "version": "1.0.0",
+  "description": "In this activity, you will complete a simplified version of A4, specifically using the option you did NOT chooose for that assignment.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JackRichard889/cs4241-the-other-one-a25.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JackRichard889/cs4241-the-other-one-a25/issues"
+  },
+  "homepage": "https://github.com/JackRichard889/cs4241-the-other-one-a25#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

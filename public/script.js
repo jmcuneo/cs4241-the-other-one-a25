@@ -1,18 +1,25 @@
 const playButton = document.querySelector("#play-button");
 
 let audioCtx = new AudioContext();
-let track = audioCtx.createBufferSource();
 
-fetch("audioFiles/cat-meow-401729.mp3")
-    .then(response => response.arrayBuffer())
-    .then(buffer => audioCtx.decodeAudioData(buffer))
-    .then(buffer => {
-        track.buffer = buffer;
+async function loadSound(fileName, location) {
+    let node = audioCtx.createBufferSource();
 
-        const node = new StereoPannerNode(audioCtx, { pan: -1 });
-        node.connect(audioCtx.destination);
+    let response = await fetch(fileName);
+    let arraybuffer = await response.arrayBuffer();
+    node.buffer = await audioCtx.decodeAudioData(arraybuffer);
 
-        track.connect(node);
-    });
+    const panner = audioCtx.createStereoPanner();
+    panner.pan.value = location;
+    panner.connect(audioCtx.destination);
 
-playButton.addEventListener("click", () => track.start(0));
+    node.connect(panner);
+
+    return node;
+}
+
+let sound;
+loadSound("audioFiles/cat-meow-401729.mp3", -1)
+    .then((node) => sound = node);
+
+playButton.addEventListener("click", () => sound.start(0));
