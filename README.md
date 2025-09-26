@@ -15,6 +15,8 @@ to log in:
 username: testuser
 password: password123
 
+It's lowkey confusing when you go to the render link, because the original A3 and the Svelte A3 is the exact same. 
+
 you will see all of the components within the login page and the application, as we used svelte for components!
 
 ### Contributions
