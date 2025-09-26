@@ -1,8 +1,110 @@
 <!doctype html>
 <html lang='en'>
-  <head>
-    <style> body { margin:0 } </style>
-    <script src='./main.js' type="module"></script>
-  </head>
-  <body></body>
+
+<head>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .navbar button {
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .navbar button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .navbar button.active {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+    <script id="current-script" src='./main-knot.js' type="module"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <button onclick="switchScene('main-knot.js')" class="active" id="knot-btn">Torus Knot</button>
+        <button onclick="switchScene('main-cube.js')" id="cube-btn">Rotating Cube</button>
+        <button onclick="switchScene('main-sphere.js')" id="sphere-btn">Floating Sphere</button>
+    </div>
+
+    <script>
+        let currentScript = null;
+
+        function switchScene(scriptPath) {
+            // Remove the current script
+            if (currentScript) {
+                currentScript.remove();
+            }
+
+            // Clear the scene by removing canvas and tweakpane
+            const canvas = document.querySelector('canvas');
+            if (canvas) {
+                canvas.remove();
+            }
+
+            const tweakpane = document.querySelector('.tp-dfwv');
+            if (tweakpane) {
+                tweakpane.remove();
+            }
+
+            // Update button states
+            document.querySelectorAll('.navbar button').forEach(btn => btn.classList.remove('active'));
+
+            // Set active button
+            if (scriptPath.includes('knot')) {
+                document.getElementById('knot-btn').classList.add('active');
+            } else if (scriptPath.includes('cube')) {
+                document.getElementById('cube-btn').classList.add('active');
+            } else if (scriptPath.includes('sphere')) {
+                document.getElementById('sphere-btn').classList.add('active');
+            }
+
+            // Load new script
+            currentScript = document.createElement('script');
+            currentScript.src = './' + scriptPath;
+            currentScript.type = 'module';
+            document.head.appendChild(currentScript);
+
+            // Update the current script reference
+            const existingScript = document.getElementById('current-script');
+            if (existingScript) {
+                existingScript.src = './' + scriptPath;
+            }
+        }
+
+        // Initialize with the knot scene
+        window.addEventListener('load', () => {
+            currentScript = document.getElementById('current-script');
+        });
+    </script>
+</body>
+
 </html>
