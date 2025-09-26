@@ -11,7 +11,7 @@
 
 ### 3. Contributions 
 * Utku Yakar
-    * GitHub Repo Logistics (Fork/PR etc.), Writing Readme, Finding Example Projects
+    * GitHub Repo Logistics (Fork/PR etc.), Writing Readme, Finding Example Projects. Implemented some of the basic visualizer
 * Ashley Fontaine
     * Research into Libraries and Canvas, Research into AnalyserNode, implementing basic webpage and Canvas
 * Conor McCoy
