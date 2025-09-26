@@ -14,6 +14,6 @@ Link: FILL
 - Akaash Walker
     - FILL
 - Cameron Norris
-    - FILL
+    - Created the Arc Tween that randomly moves about the circle
 - Dillon Bresnahan
     - FILL
