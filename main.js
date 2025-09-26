@@ -4,6 +4,7 @@ import { Pane } from 'https://unpkg.com/tweakpane'
 
 const app = {
     init() {
+
         // Starting object. Will be populated with camera, lighting objects, etc.
         this.scene = new THREE.Scene()
 
@@ -28,12 +29,89 @@ const app = {
         // "this" is not assumed to be the global "this" but the function reference.
         // Called "hard binding"
         this.render = this.render.bind(this)
+
+        this.setupTweakpane()
         this.render()
 
+    },
+
+    setupTweakpane() {
         // create a new tweakpane instance
         this.pane = new Pane()
-        // setup our pane to control the know rotation on the y axis
-        this.pane.addBinding(this.knot.rotation, 'y')
+
+        // Parameters object to hold our control values
+        this.params = {
+            knotColor: '#ff0000',
+            backgroundColor: '#000000',
+            position: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            scale: 1
+        }
+
+        // Rotation controls
+        const rotationFolder = this.pane.addFolder({
+            title: 'Rotation',
+            expanded: true
+        })
+        rotationFolder.addBinding(this.knot.rotation, 'x', {
+            min: 0, max: Math.PI * 2, step: 0.01
+        })
+        rotationFolder.addBinding(this.knot.rotation, 'y', {
+            min: 0, max: Math.PI * 2, step: 0.01
+        })
+        rotationFolder.addBinding(this.knot.rotation, 'z', {
+            min: 0, max: Math.PI * 2, step: 0.01
+        })
+
+        // Position controls
+        const positionFolder = this.pane.addFolder({
+            title: 'Position',
+            expanded: true
+        })
+        positionFolder.addBinding(this.params.position, 'x', {
+            min: -50, max: 50, step: 0.1
+        }).on('change', (ev) => {
+            this.knot.position.x = ev.value
+        })
+        positionFolder.addBinding(this.params.position, 'y', {
+            min: -50, max: 50, step: 0.1
+        }).on('change', (ev) => {
+            this.knot.position.y = ev.value
+        })
+        positionFolder.addBinding(this.params.position, 'z', {
+            min: -50, max: 50, step: 0.1
+        }).on('change', (ev) => {
+            this.knot.position.z = ev.value
+        })
+
+        // Scale control
+        this.pane.addBinding(this.params, 'scale', {
+            min: 0.1, max: 3, step: 0.1
+        }).on('change', (ev) => {
+            this.knot.scale.setScalar(ev.value)
+        })
+
+        // Color controls
+        const colorFolder = this.pane.addFolder({
+            title: 'Colors',
+            expanded: true
+        })
+
+        // Knot color control
+        colorFolder.addBinding(this.params, 'knotColor').on('change', (ev) => {
+            this.knot.material.color.setHex(ev.value.replace('#', '0x'))
+        })
+
+        // Background color control
+        colorFolder.addBinding(this.params, 'backgroundColor').on('change', (ev) => {
+            this.scene.background = new THREE.Color(ev.value)
+        })
+
+        // Set initial background color
+        this.scene.background = new THREE.Color(this.params.backgroundColor)
     },
 
     createLights() {
@@ -62,9 +140,6 @@ const app = {
 
     // Animation loop
     render() {
-        // Slowing increment the rotation angle over time to animate the knot
-        this.knot.rotation.x += .025
-
         // Render using the scene and camera specified earlier
         this.renderer.render(this.scene, this.camera)
 
