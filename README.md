@@ -4,7 +4,7 @@ This project demonstrates the conversion of a vanilla HTML/JavaScript game wishl
 
 ## Overview
 
-The original application was a simple game wishlist manager built with vanilla HTML, CSS, and JavaScript that communicated with a server backend. The converted version maintains all original functionality while leveraging React's component-based architecture and state management.
+The original application was a simple game wishlist manager built with vanilla HTML, CSS, and JavaScript that communicated with a server backend. The converted version maintains much of the original functionality while leveraging React's component based architecture and state management, although due to time constraints not everything was able to be translated exactly.
 
 ## Original vs. React Architecture
 
