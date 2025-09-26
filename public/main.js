@@ -95,4 +95,4 @@ function addCube() {
   renderer.setAnimationLoop( t => spin(cube, t));
 }
 
-window.addEventListener('click', addCube);
+window.addEventListener('keydown', addCube);
