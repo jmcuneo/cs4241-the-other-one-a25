@@ -18,7 +18,7 @@ The original application was a simple game wishlist manager built with vanilla H
 - **Components**: Reusable, declarative UI components
 - **State Management**: React hooks (`useState`, `useEffect`) for reactive data
 - **TypeScript**: Type safety with interfaces and proper typing
-- **Modern Patterns**: Controlled components, event handlers, and lifecycle management
+- **Modern Patterns**: Controlled components and event handlers
 
 ## Key Features Preserved
 
