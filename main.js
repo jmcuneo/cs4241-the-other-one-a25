@@ -1,6 +1,7 @@
 // import our three.js reference
 import * as THREE from 'three';
 import { FirstPersonControls } from 'three/addons/controls/FirstPersonControls.js';
+import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 
 import { Pane } from 'tweakpane'
 
@@ -11,11 +12,11 @@ const app = {
 
     // Starting object. Will be populated with camera, lighting objects, etc.
     this.scene = new THREE.Scene()
-    this.scene.background = new THREE.Color( 0xbfd1e5 );
 
     // Create a new camera
     this.camera = new THREE.PerspectiveCamera(75 , window.innerWidth/window.innerHeight, 0.1, 1000 )
-    this.camera.position.y = 1 
+    this.camera.position.y = 1
+    this.camera.rotation.y = 45 
 
     // Specify the type of renderer to use. In this case, it's a WebGL renderer.
     this.renderer = new THREE.WebGLRenderer()
@@ -28,13 +29,27 @@ const app = {
     this.controls = new FirstPersonControls( this.camera, this.renderer.domElement );
 
     this.controls.movementSpeed = 1;
-    this.controls.lookSpeed = 0.05;
+    this.controls.lookSpeed = 0.1;
     this.controls.lookVertical = true;
     this.controls.activeLook = false;
 	
     // Add Lights
     this.createLights()
     this.knot = this.createKnot()
+
+    // Add HDRI
+    const pmremGenerator = new THREE.PMREMGenerator(this.renderer);
+    pmremGenerator.compileEquirectangularShader();
+
+    new HDRLoader()
+    .setDataType(THREE.HalfFloatType)
+    .load('minedump_flats_2k.hdr', (hdriMap) => {
+        const envMap = pmremGenerator.fromEquirectangular(hdriMap).texture;
+        this.scene.environment = envMap;
+        this.scene.background = envMap;
+        hdriMap.dispose();
+        pmremGenerator.dispose();
+    });
 
     // Add Plane
     this.floor = this.createFloor()
@@ -101,6 +116,8 @@ const app = {
 
   // Animation loop
   render() {
+    this.knot.rotation.z += 0.005;
+
     // Control Update
     this.controls.update(this.clock.getDelta());
 
