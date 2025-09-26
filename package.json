@@ -1,0 +1,21 @@
+{
+  "name": "ICE04",
+  "version": "1.0.0",
+  "description": "ICE04 of CS4241, starts with existing OwenHart-A2",
+  "author": "Group 15",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "vite-express": "^0.21.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^7.1.7"
+  }
+}
