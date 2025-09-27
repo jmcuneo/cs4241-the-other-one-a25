@@ -1,0 +1,16 @@
+{
+  "name": "ice04-audio-visualizer-wip",
+  "version": "0.9.0",
+  "description": "ICE 04 – Audio visualizer (Web Audio + Canvas) — works, 3/4 complete, a few TODOs",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
