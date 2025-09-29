@@ -1,34 +1,113 @@
-const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const source = audioCtx.createMediaStreamSource(stream);
-
-const analyser = audioCtx.createAnalyser();
-analyser.fftSize = 2048;
-
-const bufferLength = analyser.frequencyBinCount;
-const dataArray = new Uint8Array(bufferLength);
-
-source.connect(analyser);
+let analyser, bufferLength, dataArray, sourceNode;
+let audioElement, audioSource;
+let isFileMode = false;
 
 const canvas = document.getElementById('spectrogram');
 const ctx = canvas.getContext('2d');
 
+const playBtn = document.getElementById('play');
+const pauseBtn = document.getElementById('pause');
+const selectFileBtn = document.getElementById('select-file');
+const fileInput = document.getElementById('file-input');
+const modeToggle = document.getElementById('mode-toggle');
+const modeLabel = document.getElementById('mode-label');
+
+function setupAnalyser(inputSource) {
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 2048;
+    bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
+    inputSource.connect(analyser);
+    analyser.connect(audioCtx.destination);
+}
+
+async function initMic() {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    sourceNode = audioCtx.createMediaStreamSource(stream);
+    setupAnalyser(sourceNode);
+    isFileMode = false;
+    modeLabel.textContent = "Mic";
+}
+
+function initFile(file) {
+    if (audioElement) {
+        audioElement.pause();
+    }
+    audioElement = new Audio();
+    audioElement.src = URL.createObjectURL(file);
+    audioElement.crossOrigin = "anonymous";
+    audioElement.loop = true;
+
+    audioSource = audioCtx.createMediaElementSource(audioElement);
+    setupAnalyser(audioSource);
+
+    isFileMode = true;
+    modeLabel.textContent = "File";
+}
+
+
 function draw() {
     requestAnimationFrame(draw);
+
+    if (!analyser) return;
 
     analyser.getByteFrequencyData(dataArray);
 
     const imageData = ctx.getImageData(1, 0, canvas.width - 1, canvas.height);
     ctx.putImageData(imageData, 0, 0);
 
-    for (let i = 0; i < bufferLength; i++) {
+
+    const scale = bufferLength / canvas.height;
+    for (let y = 0; y < canvas.height; y++) {
+        const i = Math.floor(y * scale);
         const value = dataArray[i];
         const percent = value / 255;
-        const hue = Math.floor(255 - (percent * 255));
+
+        const hue = 240 - percent * 240;
         ctx.fillStyle = `hsl(${hue}, 100%, 50%)`;
-        ctx.fillRect(canvas.width - 1, canvas.height - i, 1, 1);
+        ctx.fillRect(canvas.width - 1, canvas.height - y, 1, 1);
     }
 }
 
+playBtn.addEventListener('click', async () => {
+    if (audioCtx.state === 'suspended') {
+        await audioCtx.resume();
+    }
+    if (isFileMode && audioElement) {
+        audioElement.play();
+    }
+});
+
+pauseBtn.addEventListener('click', () => {
+    if (isFileMode && audioElement) {
+        audioElement.pause();
+    }
+});
+
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        initFile(file);
+        audioElement.play();
+        modeToggle.checked = true;
+    }
+});
+
+modeToggle.addEventListener('change', async () => {
+    if (modeToggle.checked) {
+        if (fileInput.files[0]) {
+            initFile(fileInput.files[0]);
+            audioElement.play();
+        } else {
+            modeToggle.checked = false;
+            alert("Please select a file first.");
+        }
+    } else {
+        await initMic();
+    }
+});
+
+initMic();
 draw();

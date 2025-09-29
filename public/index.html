@@ -10,9 +10,15 @@
     <canvas id="spectrogram" width="800" height="256"></canvas>
 
     <div id="controls">
-        <button class ="controls" id="play">Play</button>
-        <button class ="controls" id="pause">Pause</button>
-        <button class ="controls" id="select-file">Select File</button>
+        <button class="controls" id="play">Play</button>
+        <button class="controls" id="pause">Pause</button>
+        <input type="file" id="file-input" accept="audio/*">
+
+        <label class="switch">
+            <input type="checkbox" id="mode-toggle">
+            <span class="slider"></span>
+        </label>
+        <span id="mode-label">Mic</span>
     </div>
 
     <script type="module" src="app.js"></script>
