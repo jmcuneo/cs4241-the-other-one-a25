@@ -1,4 +1,4 @@
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const audioCtx = new window.AudioContext();
 let analyser, bufferLength, dataArray;
 let micSource, fileSource, audioElement;
 let isFileMode = false;
@@ -8,7 +8,6 @@ const ctx = canvas.getContext('2d');
 
 const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
-const selectFileBtn = document.getElementById('select-file');
 const fileInput = document.getElementById('file-input');
 const modeToggle = document.getElementById('mode-toggle');
 const modeLabel = document.getElementById('mode-label');
