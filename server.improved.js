@@ -18,12 +18,15 @@ let groceryList = []
 
 
 const server = http.createServer( function( request,response ) {
-  if( request.method === "GET" ) {
+  if (request.method === "GET" && request.url === "/items") { 
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify(groceryList));
+  } else if( request.method === "GET" ) {
     handleGet( request, response )    
     //added smth here
-  }else if( request.method === "POST" && request.url === "/submit"){
+  } else if( request.method === "POST" && request.url === "/submit"){
     handlePost( request, response ) 
-  }else if( request.method === "POST" && request.url === "/delete"){
+  } else if( request.method === "POST" && request.url === "/delete"){
     handleDelete(request, response)
   }
 
