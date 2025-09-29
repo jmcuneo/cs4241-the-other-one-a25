@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Grocery List - Item Visualizer Using Canvas</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h1>Creative Coding: Item Visualization with Canvas</h1>
+    <canvas id="viz" width="800" height="600" style="border:1px solid black;"></canvas>
+    
+    <script>
+        async function draw() {
+            const res = await fetch("/items");
+            const items = await res.json();
+            
+            const canvas = document.getElementById("viz");
+            const ctx = canvas.getContext("2d");
+
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            items.forEach((item, i) => {
+                ctx.beginPath();
+                ctx.arc(100 + (i * 60), 300, 30, 0, Math.PI * 2); // position in a row
+                ctx.fillStyle = "pink";
+                ctx.fill();
+                ctx.stroke();
+            });
+        }
+
+        draw();
+    </script>
+
+  </body>
+</html>

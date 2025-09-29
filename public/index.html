@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Grocery List - CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Delius&display=swap" rel="stylesheet">
+    
+    <!-- get rid of favicon error -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+  </head>
+  <body>
+    <h1>Grocery List 🛒</h1>
+    <form id="groceryForm">
+      <div class="form-flex-container">
+        <input type="text" id="item" placeholder="Item" required>
+        <input type="text" id="category" placeholder="Category" required>
+        <input type="date" id="expirationDate" required>
+        <button type="submit">Add Item</button>
+      </div>
+    </form>
+
+    <h1>Current Grocery List</h1>
+    <table id="groceryListTable">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Category</th>
+          <th>Expiration Date</th>
+          <th>Days Until Expiration</th>
+          <th>Delete</th>
+          <th>Edit</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+  </body>
+</html>
