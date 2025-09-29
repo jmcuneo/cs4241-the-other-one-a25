@@ -13,3 +13,10 @@ In this activity, you will complete a simplified version of A4, specifically usi
     * Your README should include your hosting link, the name of all group members, **your group number**, the contributions of each group member, and any instructions necessary to use the application. You can ignore the points in A4 about goals and challenges.
     * I suggest one group member fork this assignment and then add the other group members as contributors.
     * You should submit a pull request against THIS assignment, NOT A4.
+
+
+Jimmy Martella (Group _):
+[link]
+
+I am doing Components as my Assignment Four so I took on Creative Coding for this. Since I wasn't in class the day this was done, in order to replicate the planning and time management aspect of the activity, once I decided which technology I wanted to pursue, I decided to set a two hour timer to see both what I thought I could and actually could get done in that short time.
+I decided to try out D3 and landed on depicting the Pokédex dateset with the initial idea of using a bar chart before quickly pivoting to a bubble chart. My plan was to try and make a bubble chart that depicts the spawn rates of the 151 Pokémon, where the user could toggle whether they wanted to do by individual Pokémon or by type.
