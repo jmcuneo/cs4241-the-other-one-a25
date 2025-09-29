@@ -7,5 +7,6 @@ When I add items to the grocery list on the main page, I can then open /creative
 How to use:
 - Go to the main page and add grocery items (name, category, expiration date).
 - The list updates with the items.
-- Navigate to /creative.html
+- Navigate to http://localhost:3000/new-code.html
+[/new-code.html](https://ice04-hrithikaravishankar.onrender.com/new-code.html)
 - Circles will be drawn on a canvas, one for each item in the grocery list.
