@@ -4,55 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="app.js"></script>
 </head>
 
 <body>
     <canvas id="spectrogram" width="800" height="256"></canvas>
 
-    <script>
-
-        const canvas = document.getElementById('spectrogram');
-
-        const ctx = canvas.getContext('2d');
-
-        let x = 0;
-
-
-
-        function draw() {
-
-            requestAnimationFrame(draw);
-
-            analyser.getByteFrequencyData(dataArray);
-
-
-
-            const imageData = ctx.getImageData(1, 0, canvas.width - 1, canvas.height);
-
-            ctx.putImageData(imageData, 0, 0); // shift left
-
-
-
-            for (let i = 0; i < bufferLength; i++) {
-
-                const value = dataArray[i];
-
-                const percent = value / 255;
-
-                const hue = Math.floor(255 - (percent * 255));
-
-                ctx.fillStyle = `hsl(${hue}, 100 %, 50 %)`;
-
-                ctx.fillRect(canvas.width - 1, canvas.height - i, 1, 1);
-
-            }
-
-        }
-
-        draw();
-
-    </script>
+    <script src="/app.js" defer></script>
 </body>
 
 </html>
