@@ -1,6 +1,6 @@
 # ICE 04: The Other One
 Charles Anton Sibal & Brandon Yeu (ICE04 Group 16)
-Deployment:
+Deployment: https://cs4241-ice04-sibal-yeu-production.up.railway.app
 
 ### Description
 This project uses the Web Audio API to take microphone and audio input, and display a spectrogram visualization as the output.
