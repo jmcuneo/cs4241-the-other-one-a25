@@ -3,11 +3,9 @@ let analyser, bufferLength, dataArray;
 let micSource, fileSource, audioElement;
 let isFileMode = false;
 
-// --- Canvas setup ---
 const canvas = document.getElementById('spectrogram');
 const ctx = canvas.getContext('2d');
 
-// --- Controls ---
 const playBtn = document.getElementById('play');
 const pauseBtn = document.getElementById('pause');
 const selectFileBtn = document.getElementById('select-file');
@@ -15,7 +13,6 @@ const fileInput = document.getElementById('file-input');
 const modeToggle = document.getElementById('mode-toggle');
 const modeLabel = document.getElementById('mode-label');
 
-// Initialize analyser
 function setupAnalyser(inputSource, connectToSpeakers = false) {
     analyser = audioCtx.createAnalyser();
     analyser.fftSize = 2048;
@@ -28,7 +25,6 @@ function setupAnalyser(inputSource, connectToSpeakers = false) {
     }
 }
 
-// Setup mic
 async function initMic() {
     if (fileSource) {
         fileSource.disconnect();
@@ -41,12 +37,11 @@ async function initMic() {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     micSource = audioCtx.createMediaStreamSource(stream);
 
-    setupAnalyser(micSource, false); // no speakers
+    setupAnalyser(micSource, false);
     isFileMode = false;
     modeLabel.textContent = "Mic";
 }
 
-// Setup file
 function initFile(file) {
     if (micSource) {
         micSource.disconnect();
@@ -62,13 +57,12 @@ function initFile(file) {
     audioElement.loop = true;
 
     fileSource = audioCtx.createMediaElementSource(audioElement);
-    setupAnalyser(fileSource, true); // play through speakers
+    setupAnalyser(fileSource, true);
 
     isFileMode = true;
     modeLabel.textContent = "File";
 }
 
-// Drawing loop
 function draw() {
     requestAnimationFrame(draw);
 
@@ -91,7 +85,6 @@ function draw() {
     }
 }
 
-// --- Events ---
 playBtn.addEventListener('click', async () => {
     if (audioCtx.state === 'suspended') {
         await audioCtx.resume();
@@ -107,10 +100,6 @@ pauseBtn.addEventListener('click', () => {
     }
 });
 
-selectFileBtn.addEventListener('click', () => {
-    fileInput.click();
-});
-
 fileInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -120,7 +109,6 @@ fileInput.addEventListener('change', (event) => {
     }
 });
 
-// Toggle mic/file
 modeToggle.addEventListener('change', async () => {
     if (modeToggle.checked) {
         if (fileInput.files[0]) {
@@ -135,6 +123,5 @@ modeToggle.addEventListener('change', async () => {
     }
 });
 
-// --- Start with mic ---
 initMic();
 draw();

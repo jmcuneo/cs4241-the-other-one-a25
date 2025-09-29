@@ -4,14 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Spectrogram</title>
-    <link rel="stylesheet" href="main.css">
+    <!-- <link rel="stylesheet" href="main.css"> -->
 </head>
 
 <body>
     <div id="intro">
         <h1 id="title">Spectrogram</h1>
         <p id="authors">Charles Anton Sibal and Brandon Yeu</p>
-        <p id="citations">With help from <a href="https://dev.to/hexshift/real-time-audio-spectrograms-in-the-browser-using-web-audio-api-and-canvas-4b2d">https://dev.to/hexshift/real-time-audio-spectrograms-in-the-browser-using-web-audio-api-and-canvas-4b2d</a></p>
+        <p id="citations">With help from <a
+                href="https://dev.to/hexshift/real-time-audio-spectrograms-in-the-browser-using-web-audio-api-and-canvas-4b2d">https://dev.to/hexshift/real-time-audio-spectrograms-in-the-browser-using-web-audio-api-and-canvas-4b2d</a>
+        </p>
     </div>
 
     <canvas id="spectrogram" width="800" height="256"></canvas>
@@ -21,7 +23,6 @@
         <button class="controls" id="pause">Pause</button>
         <input type="file" id="file-input" accept="audio/*">
 
-        <!-- Toggle switch -->
         <label class="switch">
             <input type="checkbox" id="mode-toggle">
             <span class="slider"></span>
